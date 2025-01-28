@@ -8,6 +8,7 @@ import java.util.Objects;
 @Getter
 @Setter
 public class Role {
+
     private int id;
     private String roleName;
 

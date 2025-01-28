@@ -1,5 +1,6 @@
 package com.schneider.spring.springboot.autovermietungapp.entity;
 
+import com.schneider.spring.springboot.autovermietungapp.enums.Brand;
 import lombok.Getter;
 import lombok.Setter;
 
