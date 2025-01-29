@@ -1,5 +1,7 @@
 package com.schneider.spring.springboot.autovermietungapp.entity;
 
+import com.schneider.spring.springboot.autovermietungapp.enums.Brand;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,15 +10,23 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@Entity
+@Table(name="cars")
 public class Car {
-
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "car_id")
     private int id;
 
+    @Column(name = "car_model")
     private String model;
 
+    @Column(name = "car_brand")
     private Brand brand;
 
+    @Column(name = "car_price_per_day")
     private BigDecimal pricePerDay;
+
 
     @Override
     public boolean equals(Object o) {
