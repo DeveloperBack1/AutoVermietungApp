@@ -13,6 +13,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "rentals")
 public class Rental {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rental_id")
