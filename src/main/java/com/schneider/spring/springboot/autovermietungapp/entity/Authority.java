@@ -29,7 +29,8 @@ public class Authority {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Authority authority = (Authority) o;
-        return id == authority.id && Objects.equals(authorityName, authority.authorityName);
+        return id == authority.id && Objects.equals(authorityName,
+            authority.authorityName);
     }
 
     @Override
