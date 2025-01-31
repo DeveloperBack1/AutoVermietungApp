@@ -1,6 +1,6 @@
 package com.schneider.spring.springboot.autovermietungapp.entity;
 
-import com.schneider.spring.springboot.autovermietungapp.enums.Brand;
+import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +23,7 @@ public class Car {
     private String model;
 
     @Column(name = "car_brand")
+    @Enumerated(EnumType.STRING)
     private Brand brand;
 
     @Column(name = "car_price_per_day")
@@ -54,4 +55,6 @@ public class Car {
             ", pricePerDay=" + pricePerDay +
             '}';
     }
+
+
 }
