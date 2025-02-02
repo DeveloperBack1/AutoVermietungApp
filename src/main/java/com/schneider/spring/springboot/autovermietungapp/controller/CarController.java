@@ -1,9 +1,8 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
 
-import com.schneider.spring.springboot.autovermietungapp.entity.Car;
+import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +12,20 @@ import java.util.List;
 @RequestMapping("/cars")
 public class CarController {
 
-    @Autowired
-    private  CarService carService;
+    private final CarService carService;
+
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
 
     @GetMapping("/getAll")
-    public List<Car> getAllCars() {
+    public List<CarDTO> getAllCars() {
         return carService.getAllCars();
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 

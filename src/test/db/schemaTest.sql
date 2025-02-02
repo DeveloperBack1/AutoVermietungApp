@@ -55,11 +55,9 @@ CREATE TABLE IF NOT EXISTS rentals (
                                        start_date DATE           NOT NULL,
                                        end_date   DATE           NOT NULL,
                                        total_cost DECIMAL(10, 2) NOT NULL,
-                                       user_id           INT,
-                                       car_id            INT,
-                                       FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL,
-                                       FOREIGN KEY (car_id) REFERENCES cars (car_id) ON DELETE SET NULL
+    user_id           INT,
+    car_id            INT,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE SET NULL,
+    FOREIGN KEY (car_id) REFERENCES cars (car_id) ON DELETE SET NULL
 
- );
-#  CREATE INDEX idx_rentals_user ON rentals (user_id);
-#  CREATE INDEX idx_rentals_car ON rentals (car_id);
+    );
