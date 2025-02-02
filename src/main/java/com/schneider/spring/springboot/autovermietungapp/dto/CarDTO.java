@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
+
 public class CarDTO {
     private String model;
     private String brand;

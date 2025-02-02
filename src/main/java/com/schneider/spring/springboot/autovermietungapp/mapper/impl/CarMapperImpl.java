@@ -12,6 +12,7 @@ import java.util.List;
 public class CarMapperImpl implements CarMapper {
     @Override
     public List<CarDTO> toCarDTOList(List<Car> carList) {
+
         List<CarDTO> carDTOList = new ArrayList<>();
 
         for (Car car : carList) {

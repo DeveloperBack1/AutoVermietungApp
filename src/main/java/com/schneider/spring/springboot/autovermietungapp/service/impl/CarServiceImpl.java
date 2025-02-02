@@ -24,7 +24,6 @@ public class CarServiceImpl implements CarService {
         this.carRepository = carRepository;
         this.carMapper = carMapper;
     }
-
     @Override
     public List<CarDTO> getAllCars() {
         List<Car> list = carRepository.findAll();

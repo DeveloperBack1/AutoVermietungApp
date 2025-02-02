@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 public interface CarService {
-
     List<CarDTO> getAllCars();
 
 
