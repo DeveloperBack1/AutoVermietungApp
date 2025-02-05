@@ -17,7 +17,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private int id;
-    @Column(name="role_name")
+    @Column(name = "role_name")
     private String roleName;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -42,8 +42,8 @@ public class Role {
     @Override
     public String toString() {
         return "Role{" +
-            "id=" + id +
-            ", name='" + roleName + '\'' +
-            '}';
+                "id=" + id +
+                ", name='" + roleName + '\'' +
+                '}';
     }
 }

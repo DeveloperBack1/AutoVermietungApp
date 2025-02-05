@@ -11,12 +11,12 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name="cars")
+@Table(name = "cars")
 public class Car {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "car_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "car_id")
     private int id;
 
     @Column(name = "car_model")
@@ -36,9 +36,9 @@ public class Car {
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
         return id == car.id
-            && Objects.equals(model, car.model)
-            && brand == car.brand
-            && Objects.equals(pricePerDay, car.pricePerDay);
+                && Objects.equals(model, car.model)
+                && brand == car.brand
+                && Objects.equals(pricePerDay, car.pricePerDay);
     }
 
     @Override
@@ -49,11 +49,11 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-            "id=" + id +
-            ", model='" + model + '\'' +
-            ", brand=" + brand +
-            ", pricePerDay=" + pricePerDay +
-            '}';
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", brand=" + brand +
+                ", pricePerDay=" + pricePerDay +
+                '}';
     }
 
 

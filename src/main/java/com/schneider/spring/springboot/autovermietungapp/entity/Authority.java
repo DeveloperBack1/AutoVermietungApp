@@ -31,7 +31,7 @@ public class Authority {
         if (o == null || getClass() != o.getClass()) return false;
         Authority authority = (Authority) o;
         return id == authority.id && Objects.equals(authorityName,
-            authority.authorityName);
+                authority.authorityName);
     }
 
     @Override
