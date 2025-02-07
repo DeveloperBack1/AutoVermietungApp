@@ -21,7 +21,6 @@ public class Authority {
     @Column(name = "authority_name")
     private String authorityName;
 
-
     @ManyToMany(mappedBy = "authorities", cascade = CascadeType.ALL)
     private Set<Role> roles;
 
@@ -31,7 +30,7 @@ public class Authority {
         if (o == null || getClass() != o.getClass()) return false;
         Authority authority = (Authority) o;
         return id == authority.id && Objects.equals(authorityName,
-            authority.authorityName);
+                authority.authorityName);
     }
 
     @Override

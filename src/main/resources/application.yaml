@@ -1,16 +1,73 @@
-
-
 spring:
   main:
     banner-mode: off
 
   datasource:
-    url: jdbc:mysql://localhost:3306/autovermietungapp?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/autovermietungapp
     username: root
     password: Tausend1308
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+    show-sql: true
+
+  liquibase:
+    enabled: true
+    change-log: db/changelog/db.changelog-master.xml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#spring:
+#  main:
+#     banner-mode: off
+#
+#  datasource:
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASS}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQLDialect
+#    hibernate:
+#      ddl-auto: none
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#
+#  sql:
+#      init:
+#        mode: always
+
+
+
+
