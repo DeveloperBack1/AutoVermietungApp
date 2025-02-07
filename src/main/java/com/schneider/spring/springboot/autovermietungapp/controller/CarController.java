@@ -1,6 +1,6 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
-
 import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
+import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +23,13 @@ public class CarController {
         return carService.getAllCars();
     }
 
+    @PostMapping("/create")
+    public Car createCar(@RequestBody CarDTO carDTO) {
+        return carService.createCar(carDTO);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
-
-
 }

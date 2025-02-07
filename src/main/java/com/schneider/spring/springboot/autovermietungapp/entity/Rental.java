@@ -18,13 +18,15 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rental_id")
     private int id;
+
     @Column(name = "start_date")
     private LocalDate startDate;
+
     @Column(name = "end_date")
     private LocalDate endDate;
+
     @Column(name = "total_cost")
     private BigDecimal totalCost;
-
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

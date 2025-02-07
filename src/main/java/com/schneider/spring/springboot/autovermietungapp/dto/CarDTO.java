@@ -1,7 +1,6 @@
 package com.schneider.spring.springboot.autovermietungapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +15,6 @@ public class CarDTO {
 
     @JsonProperty("car_price_per_day")
     private String pricePerDay;
-
-    public String getBrand() {
-        return brand;
-    }
 
     public CarDTO(String model, String brand, String pricePerDay) {
         this.model = model;

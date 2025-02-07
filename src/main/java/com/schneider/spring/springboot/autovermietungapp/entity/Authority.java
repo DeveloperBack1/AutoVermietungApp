@@ -21,7 +21,6 @@ public class Authority {
     @Column(name = "authority_name")
     private String authorityName;
 
-
     @ManyToMany(mappedBy = "authorities", cascade = CascadeType.ALL)
     private Set<Role> roles;
 
