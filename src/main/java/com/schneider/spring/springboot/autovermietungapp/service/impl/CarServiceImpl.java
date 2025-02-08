@@ -7,7 +7,10 @@ import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages
 import com.schneider.spring.springboot.autovermietungapp.mapper.CarMapper;
 import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -34,5 +37,20 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car createCar(CarDTO carDTO) {
         return carRepository.saveAndFlush(carMapper.toCar(carDTO));
+    }
+
+    @Override
+    public List<CarDTO> findCarsByModel(String model) {
+        return List.of();
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+     carRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Car> getAllCarsEntity() {
+        return carRepository.findAll();
     }
 }

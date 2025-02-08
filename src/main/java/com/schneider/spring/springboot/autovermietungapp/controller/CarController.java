@@ -18,7 +18,12 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("getAllEntity")
+    public List<Car> getAllEntity() {
+        return carService.getAllCarsEntity();
+    }
+
+    @GetMapping("/getAllDTO")
     public List<CarDTO> getAllCars() {
         return carService.getAllCars();
     }
@@ -28,8 +33,18 @@ public class CarController {
         return carService.createCar(carDTO);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    @GetMapping("/getCarByModel")
+    public List<CarDTO> getCarByModel(@RequestParam String model) {
+        return carService.findCarsByModel(model);
     }
-}
+
+    @DeleteMapping(value = "/{id}")
+    public void deleteCarById(@PathVariable Integer id) { //delete
+        carService.deleteById(id);
+    }
+        @ExceptionHandler(Exception.class)
+        public ResponseEntity<String> handleException (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+

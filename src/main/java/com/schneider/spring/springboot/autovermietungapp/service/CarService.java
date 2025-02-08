@@ -8,5 +8,13 @@ import java.util.List;
 @Service
 public interface CarService {
     List<CarDTO> getAllCars();
+
     Car createCar(CarDTO carDTO);
+
+    List<CarDTO> findCarsByModel(String model);
+
+    void deleteById(Integer id);
+
+    List<Car> getAllCarsEntity();
+
 }
