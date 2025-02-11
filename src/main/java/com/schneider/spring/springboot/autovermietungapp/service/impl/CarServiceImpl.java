@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -40,17 +41,34 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<CarDTO> findCarsByModel(String model) {
-        return List.of();
+    public List<Car> findCarsByModel(String model) {
+        return carRepository.findCarByModel(model);
     }
 
     @Override
-    public void deleteById(Integer id) {
-     carRepository.deleteById(id);
+    public Car deleteCarById(Integer id) {
+        Optional<Car> deletedCar = carRepository.findCarById(id);
+        if (deletedCar.isPresent()) {
+            carRepository.delete(deletedCar.get());
+        }else {
+            return null;
+        }
+        return deletedCar.get();
     }
 
-    @Override
-    public List<Car> getAllCarsEntity() {
-        return carRepository.findAll();
-    }
+//    @Override
+//    public Car deleteCarById(Integer id) {
+//        Optional<Car> deletedCar = carRepository.findCarById(Integer.parseInt(id));
+//        if (deletedCar.isPresent()) {
+//            carRepository.delete(deletedCar.get());
+//        }else {
+//            return null;
+//        }
+//     return deletedCar.get();
+//    }
+
+//    @Override
+//    public List<Car> getAllCarsEntity() {
+//        return carRepository.findAll();
+//    }
 }

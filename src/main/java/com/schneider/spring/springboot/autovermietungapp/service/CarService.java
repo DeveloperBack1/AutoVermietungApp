@@ -11,10 +11,11 @@ public interface CarService {
 
     Car createCar(CarDTO carDTO);
 
-    List<CarDTO> findCarsByModel(String model);
+    List<Car> findCarsByModel(String model);
 
-    void deleteById(Integer id);
+    Car deleteCarById(Integer id);
 
-    List<Car> getAllCarsEntity();
+
+
 
 }

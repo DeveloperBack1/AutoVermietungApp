@@ -29,6 +29,8 @@ public class Car {
     @Column(name = "car_price_per_day")
     private BigDecimal pricePerDay;
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
