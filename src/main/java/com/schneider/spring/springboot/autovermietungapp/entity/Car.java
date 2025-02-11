@@ -30,7 +30,6 @@ public class Car {
     private BigDecimal pricePerDay;
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

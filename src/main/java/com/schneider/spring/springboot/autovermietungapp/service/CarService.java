@@ -16,6 +16,4 @@ public interface CarService {
     Car deleteCarById(Integer id);
 
 
-
-
 }

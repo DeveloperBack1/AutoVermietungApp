@@ -59,7 +59,6 @@ public class CarControllerTestDelete {
         verify(carService, times(1)).deleteCarById(carId);
     }
 
-
     @Test
     void testDeleteCarById_NotFound() throws Exception {
         // Arrange

@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class CarDTO {
+
     @JsonProperty("car_model")
     private String model;
 
