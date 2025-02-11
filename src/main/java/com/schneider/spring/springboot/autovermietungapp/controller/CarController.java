@@ -18,7 +18,6 @@ public class CarController {
         this.carService = carService;
     }
 
-
     @GetMapping("/getAll")
     public List<CarDTO> getAllCars() {
         return carService.getAllCars();
@@ -33,7 +32,6 @@ public class CarController {
     public List<Car> getCarByModel(@RequestParam String model) {
         return carService.findCarsByModel(model);
     }
-
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteCarById(@PathVariable Integer id) {

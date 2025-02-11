@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql(scripts = {"/db/schema-test.sql", "/db/data-test.sql"})
 @ExtendWith(MockitoExtension.class)
-public class CarControllerTestDelete {
+public class CarControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
