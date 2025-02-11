@@ -68,21 +68,38 @@ class CarControllerTestPositive {
     }
 
     @Test
-    void createCarTest() throws Exception {
-        CarDTO carDTOTest = new CarDTO("TestModel","BMW","100");
-        String jsonString = objectMapper.writeValueAsString(carDTOTest);
-
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/cars/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonString))
+    void getAllCarsByBrandPositiveTest() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByBrand/VW")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
         String mockMvcResultAsString = result.getResponse().getContentAsString();
-        Car carResult = objectMapper.readValue(mockMvcResultAsString, Car.class);
+        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {});
 
-        String expectedBrand = carDTOTest.getBrand();
-        String actualBrand = String.valueOf(carResult.getBrand());
+        CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
+        CarDTO actualData = actualList.get(0);
 
-        Assertions.assertEquals(expectedBrand, actualBrand);
+        Assertions.assertTrue(actualList.size() == 1);
+        Assertions.assertTrue(expectedData.getModel().equals(actualData.getModel()));
+        Assertions.assertTrue(expectedData.getBrand().equals(actualData.getBrand()));
+        Assertions.assertTrue(expectedData.getPricePerDay().equals(actualData.getPricePerDay()));
+    }
+
+    @Test
+    void getAllCarsByModelPositiveTest() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByModel/Golf")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String mockMvcResultAsString = result.getResponse().getContentAsString();
+        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {});
+
+        CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
+        CarDTO actualData = actualList.get(0);
+
+        Assertions.assertTrue(actualList.size() == 1);
+        Assertions.assertTrue(expectedData.getModel().equals(actualData.getModel()));
+        Assertions.assertTrue(expectedData.getBrand().equals(actualData.getBrand()));
+        Assertions.assertTrue(expectedData.getPricePerDay().equals(actualData.getPricePerDay()));
     }
 }
