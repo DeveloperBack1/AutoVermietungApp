@@ -85,4 +85,22 @@ class CarControllerTestPositive {
 
         Assertions.assertEquals(expectedBrand, actualBrand);
     }
+
+    @Test
+    void getAllCarsByModelPositiveTest() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByModel/Golf")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String mockMvcResultAsString = result.getResponse().getContentAsString();
+        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {});
+
+        CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
+        CarDTO actualData = actualList.get(0);
+
+        Assertions.assertTrue(actualList.size() == 1);
+        Assertions.assertTrue(expectedData.getModel().equals(actualData.getModel()));
+        Assertions.assertTrue(expectedData.getBrand().equals(actualData.getBrand()));
+        Assertions.assertTrue(expectedData.getPricePerDay().equals(actualData.getPricePerDay()));
+    }
 }

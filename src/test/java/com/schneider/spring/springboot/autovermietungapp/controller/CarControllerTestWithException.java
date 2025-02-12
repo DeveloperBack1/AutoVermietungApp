@@ -1,4 +1,6 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
+
+import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
 import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
@@ -17,8 +19,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
-
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -48,6 +51,21 @@ public class CarControllerTestWithException {
         System.out.println("Response: " + responseBody);
 
         Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
-        Mockito.verify(carRepository, Mockito.times(2)).findAll();
+        verify(carRepository, times(2)).findAll();
     }
+    @Test
+    void getAllCarsByModelWithExceptionTest() throws Exception {
+        when(carRepository.findCarsByModel(anyString())).thenReturn(List.of());
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByModel/Golf")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String responseBody = result.getResponse().getContentAsString();
+        System.out.println("Response: " + responseBody);
+
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
+        Mockito.verify(carRepository, Mockito.times(1)).findCarsByModel("Golf");
+    }
+
 }

@@ -35,4 +35,13 @@ public class CarServiceImpl implements CarService {
     public Car createCar(CarDTO carDTO) {
         return carRepository.saveAndFlush(carMapper.toCar(carDTO));
     }
-}
+
+    @Override
+    public List<CarDTO> getCarsByModel(String model) {
+        List<Car> list = carRepository.findCarsByModel(model);
+        if (list.isEmpty()) {
+            throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);
+        }
+        return carMapper.toCarDTOList(list);
+    }
+    }

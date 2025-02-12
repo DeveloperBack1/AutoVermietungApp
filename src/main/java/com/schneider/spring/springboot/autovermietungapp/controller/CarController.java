@@ -28,6 +28,10 @@ public class CarController {
         return carService.createCar(carDTO);
     }
 
+    @GetMapping("/getByModel/{model}")
+    public List<CarDTO> getCarsByModel(@PathVariable String model) {
+        return carService.getCarsByModel(model);
+    }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
