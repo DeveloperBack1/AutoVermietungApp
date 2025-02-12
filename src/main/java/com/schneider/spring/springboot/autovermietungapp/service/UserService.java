@@ -12,4 +12,8 @@ public interface UserService {
     List<UserDTO> getAllUsers();
 
     List<User> findUserByName(String name);
+
+    User createUser(UserDTO userDTO);
+
+    User deleteUser(UserDTO userDTO);
 }

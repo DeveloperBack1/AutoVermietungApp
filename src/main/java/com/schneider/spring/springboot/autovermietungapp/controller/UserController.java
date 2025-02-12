@@ -1,11 +1,12 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
+
 import com.schneider.spring.springboot.autovermietungapp.dto.UserDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.User;
 import com.schneider.spring.springboot.autovermietungapp.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.schneider.spring.springboot.autovermietungapp.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -27,5 +29,15 @@ public class UserController {
     @GetMapping("/getByName/{name} ")
     public List<User> getUserByName(@RequestParam String name) {
         return userService.findUserByName(name);
+    }
+
+    @PostMapping("/createUser")
+    public User createUser(@RequestBody UserDTO userDTO) {
+        return userService.createUser(userDTO);
+    }
+
+    @DeleteMapping
+    public User deleteUser(@RequestBody UserDTO userDTO) {
+        return userService.deleteUser(userDTO);
     }
 }

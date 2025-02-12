@@ -1,19 +1,15 @@
 package com.schneider.spring.springboot.autovermietungapp.service.impl;
 
-import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.dto.UserDTO;
-import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.entity.User;
-import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
 import com.schneider.spring.springboot.autovermietungapp.exception.UsersNotExistInDataBaseException;
 import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages.ErrorMessage;
-import com.schneider.spring.springboot.autovermietungapp.mapper.CarMapper;
 import com.schneider.spring.springboot.autovermietungapp.mapper.UserMapper;
-import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
 import com.schneider.spring.springboot.autovermietungapp.repository.UserRepository;
-import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import com.schneider.spring.springboot.autovermietungapp.service.UserService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,10 +19,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserService userService;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    @Autowired
+    @Lazy
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, UserService userService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.userService = userService;
     }
 
     @Override
@@ -42,6 +42,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findUserByName(String name) {
         return userRepository.findUserByName(name);
-        }
     }
 
+    @Override
+    public User createUser(UserDTO userDTO) {
+        return userRepository.save(userMapper.toUser(userDTO));
+    }
+
+    @Override
+    public User deleteUser(UserDTO userDTO) {
+        return userService.deleteUser(userDTO);
+    }
+}
