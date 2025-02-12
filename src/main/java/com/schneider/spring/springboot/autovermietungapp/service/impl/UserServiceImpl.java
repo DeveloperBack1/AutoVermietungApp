@@ -38,4 +38,10 @@ public class UserServiceImpl implements UserService {
         }
         return userMapper.toUserDTOList(list);
     }
-}
+
+    @Override
+    public List<User> findUserByName(String name) {
+        return userRepository.findUserByName(name);
+        }
+    }
+
