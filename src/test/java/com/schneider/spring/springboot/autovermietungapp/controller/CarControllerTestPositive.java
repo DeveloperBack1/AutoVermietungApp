@@ -1,13 +1,11 @@
 
 
 package com.schneider.spring.springboot.autovermietungapp.controller;
-import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
-import com.schneider.spring.springboot.autovermietungapp.entity.Car;
-import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
-import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
-import com.schneider.spring.springboot.autovermietungapp.service.CarService;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
+import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.util.DtoCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
