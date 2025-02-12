@@ -27,12 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(scripts = {"/db/schema-test.sql", "/db/data-test.sql"})
 @ExtendWith(MockitoExtension.class)
 public class CarControllerDeleteTest {
+
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
+    @Autowired
     private CarService carService;
-
 
     @Test
     void testDeleteCarById_Found() throws Exception {

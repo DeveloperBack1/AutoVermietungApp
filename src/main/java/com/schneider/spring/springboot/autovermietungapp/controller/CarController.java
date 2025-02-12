@@ -28,9 +28,9 @@ public class CarController {
         return carService.createCar(carDTO);
     }
 
-    @GetMapping("/getByModel/{model} ")
-    public List<Car> getCarByModel(@RequestParam String model) {
-        return carService.findCarsByModel(model);
+    @GetMapping("/getByModel/{model}")
+    public List<CarDTO> getCarsByModel(@PathVariable String model) {
+        return carService.getCarsByModel(model);
     }
 
     @GetMapping("/getByBrand/{brand}")

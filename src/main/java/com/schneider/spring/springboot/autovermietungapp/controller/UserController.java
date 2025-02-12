@@ -3,9 +3,7 @@ package com.schneider.spring.springboot.autovermietungapp.controller;
 import com.schneider.spring.springboot.autovermietungapp.dto.UserDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.User;
 import com.schneider.spring.springboot.autovermietungapp.service.UserService;
-import com.schneider.spring.springboot.autovermietungapp.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/getByName/{name} ")
-    public List<User> getUserByName(@RequestParam String name) {
+    public List<User> getUserByName(@PathVariable String name) {
         return userService.findUserByName(name);
     }
 

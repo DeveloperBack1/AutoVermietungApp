@@ -11,7 +11,7 @@ public interface CarService {
 
     Car createCar(CarDTO carDTO);
 
-    List<Car> findCarsByModel(String model);
+    List<CarDTO> getCarsByModel(String model);
 
     Car deleteCarById(Integer id);
 

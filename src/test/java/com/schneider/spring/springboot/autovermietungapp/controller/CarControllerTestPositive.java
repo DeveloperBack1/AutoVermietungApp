@@ -1,10 +1,9 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
+import com.schneider.spring.springboot.autovermietungapp.util.DtoCreator;
+import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
-
-import com.schneider.spring.springboot.autovermietungapp.util.DtoCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,5 +97,4 @@ class CarControllerTestPositive {
         Assertions.assertTrue(expectedData.getBrand().equals(actualData.getBrand()));
         Assertions.assertTrue(expectedData.getPricePerDay().equals(actualData.getPricePerDay()));
     }
-
 }
