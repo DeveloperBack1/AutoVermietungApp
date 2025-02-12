@@ -17,6 +17,13 @@ spring:
     enabled: true
     change-log: db/changelog/db.changelog-master.xml
 
+#    logging:
+#      level:
+#        root: error
+
+jwt:
+  secret:
+    access: your_secret_key
 
 
 

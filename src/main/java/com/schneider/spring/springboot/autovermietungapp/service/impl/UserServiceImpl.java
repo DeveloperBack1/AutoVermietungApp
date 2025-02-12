@@ -49,8 +49,21 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(userMapper.toUser(userDTO));
     }
 
+
+
+
     @Override
     public User deleteUser(UserDTO userDTO) {
         return userService.deleteUser(userDTO);
+    }
+
+    @Override
+    public UserDTO getByEmail(String email) {
+        return null;
+    }
+
+    @Override
+    public UserDTO insertUser(UserDTO userCredentialsDto) {
+        return null;
     }
 }

@@ -18,4 +18,7 @@ public interface UserService {
     User deleteUser(UserDTO userDTO);
 
 
+    UserDTO getByEmail(String email);
+
+    UserDTO insertUser(UserDTO userCredentialsDto);
 }

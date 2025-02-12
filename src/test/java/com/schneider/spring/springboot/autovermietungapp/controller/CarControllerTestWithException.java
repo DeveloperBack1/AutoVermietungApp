@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,5 +50,20 @@ public class CarControllerTestWithException {
 
         Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
         Mockito.verify(carRepository, Mockito.times(2)).findAll();
+    }
+
+    @Test
+    void getAllCarsByModelWithExceptionTest() throws Exception {
+        when(carRepository.findCarsByModel(anyString())).thenReturn(List.of());
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByModel/Golf")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String responseBody = result.getResponse().getContentAsString();
+        System.out.println("Response: " + responseBody);
+
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
+        Mockito.verify(carRepository, Mockito.times(1)).findCarsByModel("Golf");
     }
 }

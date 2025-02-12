@@ -8,11 +8,16 @@ import lombok.Setter;
 @Getter
 public class UserDTO {
 
-    @JsonProperty( "user_name")
+    @JsonProperty("user_name")
     private String name;
 
-    @JsonProperty( "user_email")
+    @JsonProperty("user_email")
     private String email;
+
+
+    public String getEmail() {
+        return email;
+    }
 
     public UserDTO(String name, String email) {
         this.name = name;
@@ -26,4 +31,6 @@ public class UserDTO {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+
 }
