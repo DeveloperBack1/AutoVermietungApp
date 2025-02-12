@@ -2,6 +2,7 @@ package com.schneider.spring.springboot.autovermietungapp.service.impl;
 
 import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.Car;
+import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
 import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.mapper.CarMapper;
@@ -40,6 +41,17 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<Car> findCarsByModel(String model) {
         return carRepository.findCarByModel(model);
+    }
+
+    @Override
+    public List<CarDTO> getCarsByBrand(String brand) {
+        Brand brandUppercase = Brand.valueOf(brand.toUpperCase());
+        List<Car> list = carRepository.findByBrand(brandUppercase);
+
+        if (list.isEmpty()) {
+            throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);
+        }
+        return carMapper.toCarDTOList(list);
     }
 
     @Override

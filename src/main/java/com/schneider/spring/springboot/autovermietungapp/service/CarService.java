@@ -15,5 +15,7 @@ public interface CarService {
 
     Car deleteCarById(Integer id);
 
+    List<CarDTO> getCarsByBrand(String brand);
+
 
 }

@@ -28,9 +28,14 @@ public class CarController {
         return carService.createCar(carDTO);
     }
 
-    @GetMapping("/getCarByModel/{model} ")
+    @GetMapping("/getByModel/{model} ")
     public List<Car> getCarByModel(@RequestParam String model) {
         return carService.findCarsByModel(model);
+    }
+
+    @GetMapping("/getByBrand/{brand}")
+    public List<CarDTO> getCarsByBrand(@PathVariable String brand) {
+        return carService.getCarsByBrand(brand);
     }
 
     @DeleteMapping(value = "/{id}")
