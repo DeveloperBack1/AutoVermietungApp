@@ -1,4 +1,5 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
+import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
 import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -25,7 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Sql(scripts = {"/db/schema-test.sql", "/db/data-test.sql"})
-public class CarControllerTestWithException {
+class CarControllerTestWithException {
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -49,5 +52,35 @@ public class CarControllerTestWithException {
 
         Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
         Mockito.verify(carRepository, Mockito.times(2)).findAll();
+    }
+
+    @Test
+    void getAllCarsByBrandWithExceptionTest() throws Exception {
+        when(carRepository.findByBrand(Brand.VW)).thenReturn(List.of());
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByBrand/VW")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String responseBody = result.getResponse().getContentAsString();
+        System.out.println("Response: " + responseBody);
+
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
+        Mockito.verify(carRepository, Mockito.times(1)).findByBrand(Brand.VW);
+    }
+
+    @Test
+    void getAllCarsByModelWithExceptionTest() throws Exception {
+        when(carRepository.findCarsByModel(anyString())).thenReturn(List.of());
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByBrand/VW")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String responseBody = result.getResponse().getContentAsString();
+        System.out.println("Response: " + responseBody);
+
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
+        Mockito.verify(carRepository, Mockito.times(1)).findByBrand(Brand.VW);
     }
 }
