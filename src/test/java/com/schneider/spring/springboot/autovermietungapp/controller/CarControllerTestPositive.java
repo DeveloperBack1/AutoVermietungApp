@@ -1,21 +1,20 @@
-
-
 package com.schneider.spring.springboot.autovermietungapp.controller;
 import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.Car;
-import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
-import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
-import com.schneider.spring.springboot.autovermietungapp.service.CarService;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.schneider.spring.springboot.autovermietungapp.util.DtoCreator;
 import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -23,6 +22,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 import java.util.Random;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -38,6 +40,7 @@ class CarControllerTestPositive {
 
     private static final Random RANDOM = new Random();
 
+
     @Test
     void getAllCarsPositiveTest() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getAll")
@@ -51,14 +54,14 @@ class CarControllerTestPositive {
         List<CarDTO> expectedList = DtoCreator.getExpectedCarDtoList();
 
         CarDTO actualListCarDTO = actualList.get(RANDOM.nextInt(actualList.size()));
-        String actualBrand = actualListCarDTO.getBrand();
+        String actualModel = actualListCarDTO.getModel();
 
         boolean hasParameterInExpectedList = false;
 
         for (CarDTO expectedCarDto : expectedList) {
-            String expectedBrand = expectedCarDto.getBrand();
+            String expectedModel = expectedCarDto.getModel();
 
-            if (expectedBrand.equals(actualBrand)) {
+            if (expectedModel.equals(actualModel)) {
                 hasParameterInExpectedList = true;
                 break;
             }
@@ -74,7 +77,8 @@ class CarControllerTestPositive {
                 .andReturn();
 
         String mockMvcResultAsString = result.getResponse().getContentAsString();
-        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {});
+        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {
+        });
 
         CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
         CarDTO actualData = actualList.get(0);
@@ -92,7 +96,8 @@ class CarControllerTestPositive {
                 .andReturn();
 
         String mockMvcResultAsString = result.getResponse().getContentAsString();
-        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {});
+        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {
+        });
 
         CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
         CarDTO actualData = actualList.get(0);
@@ -105,7 +110,7 @@ class CarControllerTestPositive {
 
     @Test
     void createCarTest() throws Exception {
-        CarDTO carDTOTest = new CarDTO("TestModel","BMW","100");
+        CarDTO carDTOTest = new CarDTO("TestModel", "BMW", "100");
         String jsonString = objectMapper.writeValueAsString(carDTOTest);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/cars/create")
@@ -120,5 +125,15 @@ class CarControllerTestPositive {
         String actualBrand = String.valueOf(carResult.getBrand());
 
         Assertions.assertEquals(expectedBrand, actualBrand);
+    }
+
+    @Test
+    void deleteCarById() throws Exception {
+
+        Integer carId = 4;
+
+        mockMvc.perform(delete("/cars/{id}", carId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
     }
 }
