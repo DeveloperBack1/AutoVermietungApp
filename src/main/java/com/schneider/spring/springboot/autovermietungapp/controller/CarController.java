@@ -1,9 +1,7 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
 import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.Car;
-import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
-import com.schneider.spring.springboot.autovermietungapp.exception.IncorrectBrandNameException;
-import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages.ErrorMessage;
+
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -28,19 +28,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-            .csrf(AbstractHttpConfigurer::disable)
-            .cors(Customizer.withDefaults())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/cars/getByBrand/**").hasRole("USER")
-                .requestMatchers("/cars/getByModel/**").hasRole("ADMIN")
-                .requestMatchers("/cars/getAll").permitAll()
-                .anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/cars/getByBrand/**").hasRole("USER")
+                        .requestMatchers("/cars/getByModel/**").hasRole("ADMIN")
+                        .requestMatchers("/cars/getAll").permitAll()
+                        .anyRequest().authenticated())
 
-            .formLogin(withDefaults())
-            .httpBasic(withDefaults())
-            .build();
+                .formLogin(withDefaults())
+                .httpBasic(withDefaults())
+                .build();
     }
 
     @Bean
@@ -62,16 +63,16 @@ public class SecurityConfig {
         String encodedUserPassword = "$2a$10$CvpFgC6Lka0MuUs8XCdmpustf/x7iumq8428VGVzdKGN7KvySy16O"; // "user"
 
         UserDetails user = User.builder()
-            .username("user")
-            .password(encodedUserPassword)
-            .roles("USER")
-            .build();
+                .username("user")
+                .password(encodedUserPassword)
+                .roles("USER")
+                .build();
 
         UserDetails admin = User.builder()
-            .username("admin")
-            .password(encodedAdminPassword)
-            .roles("ADMIN")
-            .build();
+                .username("admin")
+                .password(encodedAdminPassword)
+                .roles("ADMIN")
+                .build();
 
         System.out.println("User roles: " + user.getAuthorities());
         System.out.println("Admin roles: " + admin.getAuthorities());
