@@ -28,7 +28,7 @@ public class CarController {
 
     @GetMapping("/getByBrand/{brand}")
     public List<CarDTO> getCarsByBrand(@PathVariable String brand) {
-        brandValidator(brand);
+//        brandValidator(brand);
         return carService.getCarsByBrand(brand);
     }
 
@@ -46,18 +46,18 @@ public class CarController {
     public ResponseEntity<String> handleException(Exception e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
-    private void brandValidator(String brand) {
-        Brand[] brands = Brand.values();
-        int count = 0;
-
-        for (Brand b : brands) {
-            if (b.name().equalsIgnoreCase(brand)) {
-                count++;
-            }
-        }
-
-        if (count == 0) {
-            throw new IncorrectBrandNameException(ErrorMessage.INCORRECT_BRAND_NAME);
-        }
-    }
+//    private void brandValidator(String brand) {
+//        Brand[] brands = Brand.values();
+//        int count = 0;
+//
+//        for (Brand b : brands) {
+//            if (b.name().equalsIgnoreCase(brand)) {
+//                count++;
+//            }
+//        }
+//
+//        if (count == 0) {
+//            throw new IncorrectBrandNameException(ErrorMessage.INCORRECT_BRAND_NAME);
+//        }
+//    }
 }
