@@ -24,6 +24,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.List;
 import java.util.Random;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -120,6 +123,16 @@ class CarControllerTestPositive {
         String actualBrand = String.valueOf(carResult.getBrand());
 
         Assertions.assertEquals(expectedBrand, actualBrand);
+    }
+
+    @Test
+    void deleteCarById() throws Exception {
+
+        Integer carId = 4;
+
+        mockMvc.perform(delete("/cars/{id}", carId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
     }
 
 }

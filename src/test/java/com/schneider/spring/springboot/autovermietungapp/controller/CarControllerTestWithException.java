@@ -21,6 +21,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -82,5 +83,15 @@ class CarControllerTestWithException {
 
         Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
         Mockito.verify(carRepository, Mockito.times(1)).findByBrand(Brand.VW);
+    }
+
+    @Test
+    void deleteCarByIdNotFound() throws Exception {
+
+        Integer carId = 2;
+
+        mockMvc.perform(delete("/cars/{id}", carId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }

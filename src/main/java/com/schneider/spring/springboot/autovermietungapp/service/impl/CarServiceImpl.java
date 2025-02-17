@@ -11,6 +11,7 @@ import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -56,5 +57,16 @@ public class CarServiceImpl implements CarService {
             }
             return carMapper.toCarDTOList(list);
         }
+
+    @Override
+    public Car deleteCarById(Integer id) {
+        Optional<Car> deletedCar = carRepository.findCarById(id);
+        if (deletedCar.isPresent()) {
+            carRepository.delete(deletedCar.get());
+        }else {
+            return null;
+        }
+        return deletedCar.get();
+    }
     }
 
