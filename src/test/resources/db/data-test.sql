@@ -1,30 +1,22 @@
-SET
-REFERENTIAL_INTEGRITY FALSE;
+SET REFERENTIAL_INTEGRITY FALSE;
 
-DELETE
-FROM rentals;
-DELETE
-FROM cars;
-DELETE
-FROM roles_authorities;
-DELETE
-FROM authorities;
-DELETE
-FROM users_roles;
-DELETE
-FROM roles;
-DELETE
-FROM users;
+DELETE FROM rentals;
+DELETE FROM cars;
+DELETE FROM roles_authorities;
+DELETE FROM authorities;
+DELETE FROM users_roles;
+DELETE FROM roles;
+DELETE FROM users;
 
-INSERT INTO users (user_name, user_email)
-VALUES ('Alice Johnson', 'alice@example.com'),
-       ('Bob Smith', 'bob@example.com'),
-       ('Charlie Davis', 'charlie@example.com');
+INSERT INTO users (user_name, user_email, user_password)
+VALUES ('Alice Johnson', 'alice@example.com', '$2b$12$0Ms.Buv4JlQsaWOB3K.qe.1fWfM7.TBHVRTsgQR2Ug8uL31HR6qFa'),
+       ('Bob Smith', 'bob@example.com', '$2b$12$0Ms.Buv4JlQsaWOB3K.qe.1fWfM7.TBHVRTsgQR2Ug8uL31HR6qFa'),
+       ('Charlie Davis', 'charlie@example.com', '$2b$12$0Ms.Buv4JlQsaWOB3K.qe.1fWfM7.TBHVRTsgQR2Ug8uL31HR6qFa');
 
 INSERT INTO roles (role_name)
-VALUES ('ADMIN'),
-       ('USER'),
-       ('MANAGER');
+VALUES ('ROLE_ADMIN'),
+       ('ROLE_USER'),
+       ('ROLE_MANAGER');
 
 INSERT INTO users_roles (user_id, role_id)
 VALUES (1, 1),
@@ -58,5 +50,4 @@ VALUES ('2024-02-01', '2024-02-05', 480.00, 1, 1),
        ('2024-02-12', '2024-02-14', 200.00, 1, 4),
        ('2024-02-15', '2024-02-20', 275.00, 2, 5);
 
-SET
-REFERENTIAL_INTEGRITY TRUE;
+SET REFERENTIAL_INTEGRITY TRUE;

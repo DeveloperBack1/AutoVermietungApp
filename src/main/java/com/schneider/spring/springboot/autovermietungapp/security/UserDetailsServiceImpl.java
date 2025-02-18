@@ -3,9 +3,10 @@ package com.schneider.spring.springboot.autovermietungapp.security;
 import com.schneider.spring.springboot.autovermietungapp.entity.Authority;
 import com.schneider.spring.springboot.autovermietungapp.entity.Role;
 import com.schneider.spring.springboot.autovermietungapp.entity.User;
+import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,29 +14,48 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository; // Репозиторий для сущности User
+    public final UserRepository userRepository;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<User> optionalUser = userRepository.findUserByEmail(email);
+        User currentUser;
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с таким email не найден"));
-
-        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        for (Role role : user.getRoles()) {
-            for (Authority authority : role.getAuthorities()) {
-                authorities.add(new SimpleGrantedAuthority(authority.getAuthorityName()));
-            }
+        if(optionalUser.isEmpty()) {
+            throw new UsernameNotFoundException(ErrorMessage.USER_NOT_EXIST);
+        } else {
+            currentUser = optionalUser.get();
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+        return org.springframework.security.core.userdetails.User
+                .withUsername(email)
+                .username(currentUser.getEmail())
+                .password(currentUser.getPassword())
+                .authorities(getAuthorities(currentUser.getRoles()))
+                .build();
+    }
+
+    private Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+
+        for(Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+
+            Set<Authority> authoritySet = role.getAuthorities();
+
+            for(Authority authority : authoritySet) {
+                authorities.add(new SimpleGrantedAuthority(authority.getAuthorityName()));
+            }
+            role.getAuthorities().forEach(authority ->
+                    authorities.add(new SimpleGrantedAuthority(authority.getAuthorityName())));
+        }
+        return authorities;
     }
 }
