@@ -51,4 +51,8 @@ public class User {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+    public String getPassword() {
+        return getEmail();
+    }
 }

@@ -1,5 +1,6 @@
 package com.schneider.spring.springboot.autovermietungapp.config;
 
+import com.schneider.spring.springboot.autovermietungapp.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+private final UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -50,33 +53,33 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider provider() {
+    public AuthenticationProvider provider(UserDetailsServiceImpl userDetailsServiceImpl) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(userDetailsServiceImpl);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+//
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        String encodedAdminPassword = "$2a$10$kacdvfcepw3hOwdSkF5Hp.jLUVHgaFY3OsX4IM5KWyFUk.JTpInzy"; // "admin"
+//        String encodedUserPassword = "$2a$10$CvpFgC6Lka0MuUs8XCdmpustf/x7iumq8428VGVzdKGN7KvySy16O"; // "user"
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        String encodedAdminPassword = "$2a$10$kacdvfcepw3hOwdSkF5Hp.jLUVHgaFY3OsX4IM5KWyFUk.JTpInzy"; // "admin"
-        String encodedUserPassword = "$2a$10$CvpFgC6Lka0MuUs8XCdmpustf/x7iumq8428VGVzdKGN7KvySy16O"; // "user"
+//        UserDetails user = User.builder()
+//                .username("user")
+//                .password(encodedUserPassword)
+//                .roles("USER")
+//                .build();
+//
+//        UserDetails admin = User.builder()
+//                .username("admin")
+//                .password(encodedAdminPassword)
+//                .roles("ADMIN")
+//                .build();
 
-        UserDetails user = User.builder()
-                .username("user")
-                .password(encodedUserPassword)
-                .roles("USER")
-                .build();
-
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(encodedAdminPassword)
-                .roles("ADMIN")
-                .build();
-
-        System.out.println("User roles: " + user.getAuthorities());
-        System.out.println("Admin roles: " + admin.getAuthorities());
-
-        return new InMemoryUserDetailsManager(user, admin);
-    }
+//        System.out.println("User roles: " + user.getAuthorities());
+//        System.out.println("Admin roles: " + admin.getAuthorities());
+//
+//        return new InMemoryUserDetailsManager(user, admin);
+//    }
 }
