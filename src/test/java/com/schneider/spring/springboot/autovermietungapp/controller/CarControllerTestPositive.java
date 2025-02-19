@@ -84,10 +84,10 @@ class CarControllerTestPositive {
         CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
         CarDTO actualData = actualList.get(0);
 
-        Assertions.assertTrue(actualList.size() == 1);
-        Assertions.assertTrue(expectedData.getModel().equals(actualData.getModel()));
-        Assertions.assertTrue(expectedData.getBrand().equals(actualData.getBrand()));
-        Assertions.assertTrue(expectedData.getPricePerDay().equals(actualData.getPricePerDay()));
+        Assertions.assertEquals(1, actualList.size());
+        Assertions.assertEquals(expectedData.getModel(), actualData.getModel());
+        Assertions.assertEquals(expectedData.getBrand(), actualData.getBrand());
+        Assertions.assertEquals(expectedData.getPricePerDay(), actualData.getPricePerDay());
     }
 
     @Test
@@ -102,10 +102,10 @@ class CarControllerTestPositive {
         CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
         CarDTO actualData = actualList.get(0);
 
-        Assertions.assertTrue(actualList.size() == 1);
-        Assertions.assertTrue(expectedData.getModel().equals(actualData.getModel()));
-        Assertions.assertTrue(expectedData.getBrand().equals(actualData.getBrand()));
-        Assertions.assertTrue(expectedData.getPricePerDay().equals(actualData.getPricePerDay()));
+        Assertions.assertEquals(1, actualList.size());
+        Assertions.assertEquals(expectedData.getModel(), actualData.getModel());
+        Assertions.assertEquals(expectedData.getBrand(), actualData.getBrand());
+        Assertions.assertEquals(expectedData.getPricePerDay(), actualData.getPricePerDay());
     }
 
     @Test
@@ -136,5 +136,4 @@ class CarControllerTestPositive {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
-
 }
