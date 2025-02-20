@@ -119,6 +119,7 @@ The database consists of the following tables:
 4. Run the application:
    ```sh
    mvn spring-boot:run
+   
    ```
 5. Access the API documentation:
     - Swagger UI: `http://localhost:8080/swagger-ui.html`
