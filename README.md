@@ -114,6 +114,7 @@ The database consists of the following tables:
    ```
 3. Build the project with Maven:
    ```sh
+   
    mvn clean install
    ```
 4. Run the application:
