@@ -1,15 +1,16 @@
-Пользователь должен уметь:
+The user should be able to:
 
-- регистрироваться в системе
-- ТОЛЬКО ПОСМОТРЕТЬ весь парк БЕЗ РЕГИСТРАЦИИ
-- поиск ДОСТУПНЫХ автомобилей по параметрам
-        - brand
-- поиск ДОСТУПНЫХ автомобилей по параметрам
-        - датам аренды (с......по)
-- поиск ДОСТУПНЫХ автомобилей по параметрам
-        - диапазон цен
+Register in the system
+ONLY VIEW the entire fleet WITHOUT REGISTRATION
+Search for AVAILABLE cars by parameters:
+Brand
+Search for AVAILABLE cars by parameters:
+Rental dates (from... to)
+Search for AVAILABLE cars by parameters:
+Price range
 
-Админ должен уметь:
 
-- удалять авто
-- добавлять авто
+The admin should be able to:
+
+Delete cars
+Add cars
