@@ -1,11 +1,7 @@
 
-
 package com.schneider.spring.springboot.autovermietungapp.controller;
 import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.Car;
-import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
-import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
-import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.schneider.spring.springboot.autovermietungapp.util.DtoCreator;
@@ -56,14 +52,14 @@ class CarControllerTestPositive {
         List<CarDTO> expectedList = DtoCreator.getExpectedCarDtoList();
 
         CarDTO actualListCarDTO = actualList.get(RANDOM.nextInt(actualList.size()));
-        String actualBrand = actualListCarDTO.getBrand();
+        String actualModel = actualListCarDTO.getModel();
 
         boolean hasParameterInExpectedList = false;
 
         for (CarDTO expectedCarDto : expectedList) {
-            String expectedBrand = expectedCarDto.getBrand();
+            String expectedModel = expectedCarDto.getModel();
 
-            if (expectedBrand.equals(actualBrand)) {
+            if (expectedModel.equals(actualModel)) {
                 hasParameterInExpectedList = true;
                 break;
             }
