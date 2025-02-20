@@ -126,6 +126,7 @@ The database consists of the following tables:
 
 ### **Running with Docker**
 
+
 1. Build the Docker image:
    ```sh
    docker build -t autovermietungapp .
