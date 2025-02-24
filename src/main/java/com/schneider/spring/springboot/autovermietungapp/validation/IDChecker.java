@@ -12,4 +12,3 @@ import java.lang.annotation.Target;
 public @interface IDChecker {
     String message() default "ID is not valid. Must contains only NUMERIC parameter";
 }
-

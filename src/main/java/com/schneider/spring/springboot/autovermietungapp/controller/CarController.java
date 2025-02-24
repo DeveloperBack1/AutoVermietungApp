@@ -1,15 +1,12 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
-import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 
+import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.exception.IncorrectBrandNameException;
 import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -43,18 +40,9 @@ public class CarController {
         return carService.createCar(carDTO);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteCarById(@PathVariable Integer id) {
-        Car deletedCar = carService.deleteCarById(id);
-        if (deletedCar == null) {
-            return ResponseEntity.notFound().build(); // Возвращаем 404, если машина не найдена
-        }
-        return ResponseEntity.noContent().build(); // Возвращаем 204 No Content, если удаление успешно
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    @DeleteMapping(value = "/delete/{id}")
+    public void deleteCarById(@PathVariable Integer id) {
+        carService.deleteCarById(id);
     }
 
     private void brandValidator(String brand) {

@@ -18,5 +18,4 @@ import io.swagger.v3.oas.annotations.info.Info;
 )
 
 public class OpenApiConfig {
-// http://localhost:8088/swagger-ui/index.html
 }

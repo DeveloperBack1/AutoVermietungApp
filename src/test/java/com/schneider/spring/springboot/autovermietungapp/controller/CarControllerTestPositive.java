@@ -1,9 +1,9 @@
-
 package com.schneider.spring.springboot.autovermietungapp.controller;
-import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
-import com.schneider.spring.springboot.autovermietungapp.entity.Car;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
+import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.util.DtoCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.List;
 import java.util.Random;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -30,6 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(scripts = {"/db/schema-test.sql", "/db/data-test.sql"})
 @WithMockUser(value = "ADMIN", password = "qqq", roles = {"USER", "ADMIN"})
 class CarControllerTestPositive {
+
+    private final CarDTO EXPECTED_DATA = new CarDTO("Golf", "VW", "55.00");
 
     @Autowired
     private MockMvc mockMvc;
@@ -75,15 +76,15 @@ class CarControllerTestPositive {
                 .andReturn();
 
         String mockMvcResultAsString = result.getResponse().getContentAsString();
-        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {});
+        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {
+        });
 
-        CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
         CarDTO actualData = actualList.get(0);
 
         Assertions.assertEquals(1, actualList.size());
-        Assertions.assertEquals(expectedData.getModel(), actualData.getModel());
-        Assertions.assertEquals(expectedData.getBrand(), actualData.getBrand());
-        Assertions.assertEquals(expectedData.getPricePerDay(), actualData.getPricePerDay());
+        Assertions.assertEquals(EXPECTED_DATA.getModel(), actualData.getModel());
+        Assertions.assertEquals(EXPECTED_DATA.getBrand(), actualData.getBrand());
+        Assertions.assertEquals(EXPECTED_DATA.getPricePerDay(), actualData.getPricePerDay());
     }
 
     @Test
@@ -93,20 +94,20 @@ class CarControllerTestPositive {
                 .andReturn();
 
         String mockMvcResultAsString = result.getResponse().getContentAsString();
-        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {});
+        List<CarDTO> actualList = objectMapper.readValue(mockMvcResultAsString, new TypeReference<>() {
+        });
 
-        CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
         CarDTO actualData = actualList.get(0);
 
         Assertions.assertEquals(1, actualList.size());
-        Assertions.assertEquals(expectedData.getModel(), actualData.getModel());
-        Assertions.assertEquals(expectedData.getBrand(), actualData.getBrand());
-        Assertions.assertEquals(expectedData.getPricePerDay(), actualData.getPricePerDay());
+        Assertions.assertEquals(EXPECTED_DATA.getModel(), actualData.getModel());
+        Assertions.assertEquals(EXPECTED_DATA.getBrand(), actualData.getBrand());
+        Assertions.assertEquals(EXPECTED_DATA.getPricePerDay(), actualData.getPricePerDay());
     }
 
     @Test
     void createCarTest() throws Exception {
-        CarDTO carDTOTest = new CarDTO("TestModel","BMW","100");
+        CarDTO carDTOTest = DtoCreator.createExpectedCarDto();
         String jsonString = objectMapper.writeValueAsString(carDTOTest);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/cars/create")
@@ -115,21 +116,37 @@ class CarControllerTestPositive {
                 .andReturn();
 
         String mockMvcResultAsString = result.getResponse().getContentAsString();
-        Car carResult = objectMapper.readValue(mockMvcResultAsString, Car.class);
+        Car createdCar = objectMapper.readValue(mockMvcResultAsString, Car.class);
 
         String expectedBrand = carDTOTest.getBrand();
-        String actualBrand = String.valueOf(carResult.getBrand());
+        String actualBrand = String.valueOf(createdCar.getBrand());
 
         Assertions.assertEquals(expectedBrand, actualBrand);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/cars/delete/{id}", createdCar.getId()))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void deleteCarById() throws Exception {
+    void deleteCarTest() throws Exception {
+        CarDTO carDTOTest = DtoCreator.createExpectedCarDto();
+        String jsonString = objectMapper.writeValueAsString(carDTOTest);
 
-        Integer carId = 4;
+        MvcResult createResult = mockMvc.perform(MockMvcRequestBuilders.post("/cars/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString))
+                .andReturn();
 
-        mockMvc.perform(delete("/cars/{id}", carId)
+        Car createdCar = objectMapper.readValue(createResult.getResponse().getContentAsString(), Car.class);
+        Assertions.assertNotNull(createdCar);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/cars/delete/{id}", createdCar.getId()))
+                .andExpect(status().isOk());
+
+        MvcResult getResult = mockMvc.perform(MockMvcRequestBuilders.get("/cars/{id}", createdCar.getId())
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+                .andReturn();
+
+        Assertions.assertEquals(404, getResult.getResponse().getStatus());
     }
 }

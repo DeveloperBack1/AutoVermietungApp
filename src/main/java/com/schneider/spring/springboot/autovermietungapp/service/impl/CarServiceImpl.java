@@ -49,24 +49,23 @@ public class CarServiceImpl implements CarService {
         return carMapper.toCarDTOList(list);
     }
 
-        @Override
-        public List<CarDTO> getCarsByModel(String model) {
-            List<Car> list = carRepository.findCarsByModel(model);
-            if (list.isEmpty()) {
-                throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);
-            }
-            return carMapper.toCarDTOList(list);
+    @Override
+    public List<CarDTO> getCarsByModel(String model) {
+        List<Car> list = carRepository.findCarsByModel(model);
+        if (list.isEmpty()) {
+            throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);
         }
+        return carMapper.toCarDTOList(list);
+    }
 
     @Override
-    public Car deleteCarById(Integer id) {
-        Optional<Car> deletedCar = carRepository.findCarById(id);
-        if (deletedCar.isPresent()) {
-            carRepository.delete(deletedCar.get());
-        }else {
-            return null;
-        }
-        return deletedCar.get();
-    }
-    }
+    public void deleteCarById(Integer id) {
+        Optional<Car> carForDeleting = carRepository.findCarById(id);
 
+        if(carForDeleting.isPresent()) {
+            carRepository.delete(carForDeleting.get());
+        } else {
+            throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);
+        }
+    }
+}
