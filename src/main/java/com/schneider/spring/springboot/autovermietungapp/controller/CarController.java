@@ -43,13 +43,9 @@ public class CarController {
         return carService.createCar(carDTO);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteCarById(@PathVariable Integer id) {
-        Car deletedCar = carService.deleteCarById(id);
-        if (deletedCar == null) {
-            return ResponseEntity.notFound().build(); // Возвращаем 404, если машина не найдена
-        }
-        return ResponseEntity.noContent().build(); // Возвращаем 204 No Content, если удаление успешно
+    @DeleteMapping("/{id}")
+    public void deleteCarById(@PathVariable Integer id) {
+        carService.deleteCarById(id);
     }
 
     @ExceptionHandler(Exception.class)

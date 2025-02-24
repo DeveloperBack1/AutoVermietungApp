@@ -159,7 +159,7 @@
             </plugin>
         </plugins>
         <finalName>
-            AutoVermietungApp
+            autovermietungapp
         </finalName>
     </build>
 </project>

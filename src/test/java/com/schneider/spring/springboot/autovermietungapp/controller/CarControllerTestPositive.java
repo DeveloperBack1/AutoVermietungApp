@@ -4,7 +4,6 @@ import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.schneider.spring.springboot.autovermietungapp.util.DtoCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,12 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import com.schneider.spring.springboot.autovermietungapp.util.DtoCreator;
 
 import java.util.List;
 import java.util.Random;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -52,19 +52,19 @@ class CarControllerTestPositive {
         List<CarDTO> expectedList = DtoCreator.getExpectedCarDtoList();
 
         CarDTO actualListCarDTO = actualList.get(RANDOM.nextInt(actualList.size()));
-        String actualModel = actualListCarDTO.getModel();
+        String actualBrand = actualListCarDTO.getBrand();
 
-        boolean hasParameterInExpectedList = false;
+        boolean hasParameterInExpectedList=false ;
 
         for (CarDTO expectedCarDto : expectedList) {
-            String expectedModel = expectedCarDto.getModel();
+            String expectedBrand = expectedCarDto.getBrand();
 
-            if (expectedModel.equals(actualModel)) {
+            if (expectedBrand.equals(actualBrand)) {
                 hasParameterInExpectedList = true;
                 break;
             }
         }
-        Assertions.assertEquals(expectedList.size(), actualList.size());
+        assertEquals(expectedList.size(), actualList.size());
         Assertions.assertTrue(hasParameterInExpectedList);
     }
 
@@ -80,10 +80,10 @@ class CarControllerTestPositive {
         CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
         CarDTO actualData = actualList.get(0);
 
-        Assertions.assertEquals(1, actualList.size());
-        Assertions.assertEquals(expectedData.getModel(), actualData.getModel());
-        Assertions.assertEquals(expectedData.getBrand(), actualData.getBrand());
-        Assertions.assertEquals(expectedData.getPricePerDay(), actualData.getPricePerDay());
+        assertEquals(1, actualList.size());
+        assertEquals(expectedData.getModel(), actualData.getModel());
+        assertEquals(expectedData.getBrand(), actualData.getBrand());
+        assertEquals(expectedData.getPricePerDay(), actualData.getPricePerDay());
     }
 
     @Test
@@ -98,38 +98,59 @@ class CarControllerTestPositive {
         CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
         CarDTO actualData = actualList.get(0);
 
-        Assertions.assertEquals(1, actualList.size());
-        Assertions.assertEquals(expectedData.getModel(), actualData.getModel());
-        Assertions.assertEquals(expectedData.getBrand(), actualData.getBrand());
-        Assertions.assertEquals(expectedData.getPricePerDay(), actualData.getPricePerDay());
+        assertEquals(1, actualList.size());
+        assertEquals(expectedData.getModel(), actualData.getModel());
+        assertEquals(expectedData.getBrand(), actualData.getBrand());
+        assertEquals(expectedData.getPricePerDay(), actualData.getPricePerDay());
     }
 
     @Test
-    void createCarTest() throws Exception {
-        CarDTO carDTOTest = new CarDTO("TestModel","BMW","100");
-        String jsonString = objectMapper.writeValueAsString(carDTOTest);
+    void CreateCarPositiveTest() throws Exception {
+        CarDTO carDTO = new CarDTO(
+                "535",
+                "BMW",
+                "100");
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/cars/create")
+        String  jsonRequest = objectMapper.writeValueAsString(carDTO);
+
+        MvcResult result = mockMvc.perform(post("/cars/create")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonString))
+                        .content(jsonRequest))
+                .andExpect(status().isOk())
                 .andReturn();
 
-        String mockMvcResultAsString = result.getResponse().getContentAsString();
-        Car carResult = objectMapper.readValue(mockMvcResultAsString, Car.class);
+        String jsonResponse = result.getResponse().getContentAsString();
 
-        String expectedBrand = carDTOTest.getBrand();
-        String actualBrand = String.valueOf(carResult.getBrand());
+        Car carResponse = objectMapper.readValue(jsonResponse, Car.class);
 
-        Assertions.assertEquals(expectedBrand, actualBrand);
+        assertAll(
+                () -> assertEquals(200, result.getResponse().getStatus()),
+                () -> assertNotNull(carResponse),
+                () -> assertNotNull(carResponse.getId())
+        );
     }
 
-    @Test
-    void deleteCarById() throws Exception {
+@Test
+     void deleteCarById() throws Exception {
+        Integer carId = 1;
 
-        Integer carId = 4;
+        String jsonRequest = objectMapper.writeValueAsString(carId);
 
-        mockMvc.perform(delete("/cars/{id}", carId)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+        MvcResult result =
+                mockMvc.perform(delete("/cars/{id}", carId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonRequest))
+                        .andExpect(status().isOk())
+                        .andReturn();
+
+        String jsonResponse = result.getResponse().getContentAsString();
+        Boolean responseResult = objectMapper.readValue(jsonResponse, Boolean.class);
+
+        assertAll(
+                () -> assertEquals(200, result.getResponse().getStatus()),
+                () -> assertEquals(Boolean.TRUE, responseResult)
+        );
+
     }
+
 }

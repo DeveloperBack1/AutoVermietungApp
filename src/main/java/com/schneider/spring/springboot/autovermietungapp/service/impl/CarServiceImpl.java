@@ -8,6 +8,7 @@ import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages
 import com.schneider.spring.springboot.autovermietungapp.mapper.CarMapper;
 import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,14 +60,11 @@ public class CarServiceImpl implements CarService {
         }
 
     @Override
-    public Car deleteCarById(Integer id) {
-        Optional<Car> deletedCar = carRepository.findCarById(id);
-        if (deletedCar.isPresent()) {
-            carRepository.delete(deletedCar.get());
-        }else {
-            return null;
+    public void deleteCarById(Integer id) {
+        if (!carRepository.existsById(id)) {
+            throw new EntityNotFoundException("Car with ID " + id + " not found");
         }
-        return deletedCar.get();
+        carRepository.deleteById(id);
     }
     }
 

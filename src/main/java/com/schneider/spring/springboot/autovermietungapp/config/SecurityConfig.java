@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/cars/getByBrand/{brand}").hasAnyAuthority("ROLE_USER", "READ_PRIVILEGES")
                         .requestMatchers(HttpMethod.GET, "/cars/getByModel/{model}").hasAnyAuthority("ROLE_ADMIN", "WRITE_PRIVILEGES")
                         .requestMatchers(HttpMethod.POST,"/cars/create").hasAnyAuthority("ROLE_ADMIN", "WRITE_PRIVILEGES")
-                        .requestMatchers(HttpMethod.DELETE,"/cars/delete/{id}").hasAnyAuthority("ROLE_ADMIN", "WRITE_PRIVILEGES")
+                        .requestMatchers(HttpMethod.DELETE,"/cars/{id}").hasAnyAuthority("ROLE_ADMIN", "WRITE_PRIVILEGES")
                         .requestMatchers(HttpMethod.GET, "/cars/getAll").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
