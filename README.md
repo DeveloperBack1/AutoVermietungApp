@@ -152,4 +152,4 @@ The database consists of the following tables:
 
 ### Contributors
 
-- **Max Schneider** (Lead Developer)
+- **Max Schneider**
