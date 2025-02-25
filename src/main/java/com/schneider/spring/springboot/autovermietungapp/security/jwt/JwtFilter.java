@@ -22,7 +22,6 @@ import static org.springframework.util.StringUtils.hasText;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
-
     private final JwtUtils jwtUtils;
     private final UserDetailsServiceImpl userDetailsService;
 

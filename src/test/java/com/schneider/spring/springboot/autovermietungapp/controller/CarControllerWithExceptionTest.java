@@ -41,6 +41,10 @@ class CarControllerWithExceptionTest {
     @MockitoBean
     private CarRepository carRepository;
 
+    CarControllerWithExceptionTest(CarRepository carRepository) {
+        this.carRepository = carRepository;
+    }
+
     @Test
     void getAllCarsWithExceptionTest() throws Exception {
         when(carRepository.findAll()).thenReturn(List.of());
@@ -61,7 +65,9 @@ class CarControllerWithExceptionTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
 
-        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getCarsByBrand(String.valueOf(Brand.VW)));
+        String brand = String.valueOf(Brand.VW);
+
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getCarsByBrand(brand));
         Mockito.verify(carRepository, Mockito.times(2)).findByBrand(Brand.VW);
     }
 
@@ -95,8 +101,6 @@ class CarControllerWithExceptionTest {
         Integer nonExistingId = 999;
         when(carRepository.findCarById(nonExistingId)).thenReturn(Optional.empty());
 
-        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> {
-            carService.deleteCarById(nonExistingId);
-        });
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.deleteCarById(nonExistingId));
     }
 }
