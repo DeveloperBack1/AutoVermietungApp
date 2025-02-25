@@ -1,24 +1,24 @@
-spring:
-  main:
-    banner-mode: off
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/autovermietungapp
-    username: root
-    password: Tausend1308
-
-  jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-
-  liquibase:
-    enabled: true
-    change-log: db/changelog/db.changelog-master.xml
-
-variables:
-  jwtSecret: 9ygR+2hv51AFdykOG3lE0W1pmyq1xC/4wV74L0hRRwXyqPruX8w0m/oXFPlR+RM+S3AogFdU88RAn/MeAmJhQw==
-  jwtExpirationMs: 864000000
+#spring:
+#  main:
+#    banner-mode: off
+#
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/autovermietungapp
+#    username: root
+#    password: Tausend1308
+#
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQLDialect
+#    hibernate:
+#      ddl-auto: none
+#    show-sql: true
+#
+#  liquibase:
+#    enabled: true
+#    change-log: db/changelog/db.changelog-master.xml
+#
+#variables:
+#  jwtSecret: 9ygR+2hv51AFdykOG3lE0W1pmyq1xC/4wV74L0hRRwXyqPruX8w0m/oXFPlR+RM+S3AogFdU88RAn/MeAmJhQw==
+#  jwtExpirationMs: 864000000
 
 
