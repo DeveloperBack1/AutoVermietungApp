@@ -9,7 +9,6 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Generated("Excluded from Jacoco coverage")
 @Getter
 @Setter
 @Entity
