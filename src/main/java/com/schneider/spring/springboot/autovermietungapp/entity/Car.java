@@ -1,6 +1,7 @@
 package com.schneider.spring.springboot.autovermietungapp.entity;
 
 import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
+import jakarta.annotation.Generated;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -37,10 +37,10 @@ VALUES (1, 1),
        (3, 2);
 
 INSERT INTO cars (car_model, car_brand, car_price_per_day)
-VALUES ('Model S', 'TESLA', 120.00),
-       ('Civic', 'HONDA', 50.00),
-       ('Camry', 'TOYOTA', 65.00),
-       ('Mustang', 'FORD', 100.00),
+VALUES ('Model 3', 'TESLA', 120.00),
+       ('A4', 'AUDI', 80.00),
+       ('Corsa', 'OPEL', 50.00),
+       ('X5', 'BMW', 100.00),
        ('Golf', 'VW', 55.00);
 
 INSERT INTO rentals (rental_start_date, rental_end_date, rental_total_cost, user_id, car_id)

@@ -1,4 +1,5 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
+
 import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
 import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
@@ -15,14 +16,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql(scripts = {"/db/schema-test.sql", "/db/data-test.sql"})
 @WithMockUser(value = "ADMIN", password = "qqq", roles = {"USER", "ADMIN"})
-class CarControllerTestWithException {
+class CarControllerWithExceptionTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,19 +39,15 @@ class CarControllerTestWithException {
     private CarService carService;
 
     @MockitoBean
-    public CarRepository carRepository;
+    private CarRepository carRepository;
 
     @Test
     void getAllCarsWithExceptionTest() throws Exception {
         when(carRepository.findAll()).thenReturn(List.of());
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getAll")
+        mockMvc.perform(MockMvcRequestBuilders.get("/cars/getAll")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
-                .andReturn();
-
-        String responseBody = result.getResponse().getContentAsString();
-        System.out.println("Response: " + responseBody);
+                .andExpect(status().isBadRequest());
 
         Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
         Mockito.verify(carRepository, Mockito.times(2)).findAll();
@@ -61,39 +57,46 @@ class CarControllerTestWithException {
     void getAllCarsByBrandWithExceptionTest() throws Exception {
         when(carRepository.findByBrand(Brand.VW)).thenReturn(List.of());
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByBrand/VW")
+        mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByBrand/VW")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andReturn();
+                .andExpect(status().isBadRequest());
 
-        String responseBody = result.getResponse().getContentAsString();
-        System.out.println("Response: " + responseBody);
-
-        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
-        Mockito.verify(carRepository, Mockito.times(1)).findByBrand(Brand.VW);
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getCarsByBrand(String.valueOf(Brand.VW)));
+        Mockito.verify(carRepository, Mockito.times(2)).findByBrand(Brand.VW);
     }
 
     @Test
     void getAllCarsByModelWithExceptionTest() throws Exception {
         when(carRepository.findCarsByModel(anyString())).thenReturn(List.of());
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByBrand/VW")
+        mockMvc.perform(MockMvcRequestBuilders.get("/cars/getByModel/Golf")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andReturn();
+                .andExpect(status().isBadRequest());
 
-        String responseBody = result.getResponse().getContentAsString();
-        System.out.println("Response: " + responseBody);
-
-        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getAllCars());
-        Mockito.verify(carRepository, Mockito.times(1)).findByBrand(Brand.VW);
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.getCarsByModel("Golf"));
+        Mockito.verify(carRepository, Mockito.times(2)).findCarsByModel("Golf");
     }
 
     @Test
     void deleteCarByIdNotFound() throws Exception {
+        Integer notExistingId = 999;
+        when(carRepository.findCarById(notExistingId)).thenReturn(Optional.empty());
 
-        Integer carId = 2;
+        mockMvc.perform(MockMvcRequestBuilders.delete("/cars/delete/{id}", notExistingId))
+                .andExpect(status().isBadRequest());
 
-        mockMvc.perform(delete("/cars/{id}", carId)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.deleteCarById(notExistingId));
+        Mockito.verify(carRepository, Mockito.times(2)).findCarById(notExistingId);
+    }
+
+    @Test
+    void deleteNonExistingCarThrowsException() {
+
+        Integer nonExistingId = 999;
+        when(carRepository.findCarById(nonExistingId)).thenReturn(Optional.empty());
+
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> {
+            carService.deleteCarById(nonExistingId);
+        });
     }
 }
