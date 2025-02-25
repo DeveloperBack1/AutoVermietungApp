@@ -10,9 +10,21 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Mapper implementation for converting between {@link Car} entities and {@link CarDTO} objects.
+ * <p>
+ * This class provides methods to convert a list of {@link Car} objects into a list of {@link CarDTO} objects
+ * and vice versa, ensuring proper data mapping between the two.
+ */
 @Component
 public class CarMapperImpl implements CarMapper {
 
+    /**
+     * Converts a list of {@link Car} entities to a list of {@link CarDTO} objects.
+     *
+     * @param carList the list of {@link Car} entities to be converted.
+     * @return the corresponding list of {@link CarDTO} objects.
+     */
     @Override
     public List<CarDTO> toCarDTOList(List<Car> carList) {
         List<CarDTO> carDTOList = new ArrayList<>();
@@ -27,6 +39,12 @@ public class CarMapperImpl implements CarMapper {
         return carDTOList;
     }
 
+    /**
+     * Converts a {@link CarDTO} object to a {@link Car} entity.
+     *
+     * @param carDTO the {@link CarDTO} object to be converted.
+     * @return the corresponding {@link Car} entity.
+     */
     @Override
     public Car toCar(CarDTO carDTO) {
         Car car = new Car();

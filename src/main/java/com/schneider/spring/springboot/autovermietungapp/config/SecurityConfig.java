@@ -2,6 +2,9 @@ package com.schneider.spring.springboot.autovermietungapp.config;
 
 import com.schneider.spring.springboot.autovermietungapp.security.UserDetailsServiceImpl;
 import com.schneider.spring.springboot.autovermietungapp.security.jwt.JwtFilter;
+import com.schneider.spring.springboot.autovermietungapp.security.utility.SecurityPermission;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +22,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Security configuration for the Autovermietung project.
+ * <p>
+ * This class configures Spring Security to handle authentication, authorization,
+ * and JWT token filtering for secure endpoints.
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -27,16 +36,26 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtFilter jwtfilter;
 
+    /**
+     * Configures HTTP security settings, including routes and their access rules.
+     * <p>
+     * This method specifies which API endpoints require authentication and what roles or
+     * permissions are necessary to access them.
+     *
+     * @param http the HttpSecurity instance
+     * @return configured SecurityFilterChain instance
+     */
     @Bean
+    @Operation(summary = "Configure HTTP Security", description = "Sets up the security filter chain for the API endpoints, JWT authentication, and CSRF protection.")
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .logout(logout -> logout.deleteCookies("JSESSIONID"))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/cars/getByBrand/{brand}").hasAnyAuthority("ROLE_USER", "READ_PRIVILEGES")
-                        .requestMatchers(HttpMethod.GET, "/cars/getByModel/{model}").hasAnyAuthority("ROLE_ADMIN", "WRITE_PRIVILEGES")
-                        .requestMatchers(HttpMethod.POST,"/cars/create").hasAnyAuthority("ROLE_ADMIN", "WRITE_PRIVILEGES")
-                        .requestMatchers(HttpMethod.DELETE,"/cars/delete/{id}").hasAnyAuthority("ROLE_ADMIN", "WRITE_PRIVILEGES")
+                        .requestMatchers(SecurityPermission.SWAGGER_AND_LOGIN_PERMISSIONS).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/cars/getByBrand/{brand}").hasAnyAuthority(SecurityPermission.GET_BY_BRAND_PERMISSIONS)
+                        .requestMatchers(HttpMethod.GET, "/cars/getByModel/{model}").hasAnyAuthority(SecurityPermission.GET_BY_MODEL_PERMISSIONS)
+                        .requestMatchers(HttpMethod.POST, "/cars/create").hasAnyAuthority(SecurityPermission.CREATE_CAR_PERMISSIONS)
+                        .requestMatchers(HttpMethod.DELETE, "/cars/delete/{id}").hasAnyAuthority(SecurityPermission.CAR_DELETE)
                         .requestMatchers(HttpMethod.GET, "/cars/getAll").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -46,12 +65,26 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Bean for password encoding using BCrypt.
+     *
+     * @return PasswordEncoder instance
+     */
     @Bean
+    @Operation(summary = "Password Encoder", description = "Defines the password encoder used to encrypt user passwords.")
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Bean for configuring the authentication provider.
+     * <p>
+     * The provider uses a custom UserDetailsService and password encoder for user authentication.
+     *
+     * @return AuthenticationProvider instance
+     */
     @Bean
+    @Operation(summary = "Authentication Provider", description = "Configures the authentication provider with user details service and password encoder.")
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
@@ -59,7 +92,15 @@ public class SecurityConfig {
         return provider;
     }
 
+    /**
+     * Bean for the authentication manager to handle the authentication process.
+     *
+     * @param authenticationConfiguration the AuthenticationConfiguration instance
+     * @return AuthenticationManager instance
+     * @throws Exception if there is a configuration error
+     */
     @Bean
+    @Operation(summary = "Authentication Manager", description = "Configures the authentication manager for the application.")
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
