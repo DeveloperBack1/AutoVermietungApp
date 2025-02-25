@@ -2,6 +2,7 @@ package com.schneider.spring.springboot.autovermietungapp.config;
 
 import com.schneider.spring.springboot.autovermietungapp.security.UserDetailsServiceImpl;
 import com.schneider.spring.springboot.autovermietungapp.security.jwt.JwtFilter;
+import com.schneider.spring.springboot.autovermietungapp.security.util.SecurityPermission;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +33,8 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .logout(logout -> logout.deleteCookies("JSESSIONID"))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/cars/getByBrand/{brand}").hasAnyAuthority("ROLE_USER", "READ_PRIVILEGES")
+                        .requestMatchers(SecurityPermission.SWAGGER_AND_LOGIN_PERMISSIONS).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/cars/getByBrand/{brand}").hasAnyAuthority(SecurityPermission.GET_BY_BRAND_PERMISSIONS)
                         .requestMatchers(HttpMethod.GET, "/cars/getByModel/{model}").hasAnyAuthority("ROLE_ADMIN", "WRITE_PRIVILEGES")
                         .requestMatchers(HttpMethod.POST,"/cars/create").hasAnyAuthority("ROLE_ADMIN", "WRITE_PRIVILEGES")
                         .requestMatchers(HttpMethod.DELETE,"/cars/delete/{id}").hasAnyAuthority("ROLE_ADMIN", "WRITE_PRIVILEGES")
