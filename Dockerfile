@@ -1,10 +1,13 @@
+FROM openjdk:17-jdk-slim
 
-FROM openjdk:17-jdk
+WORKDIR /app
 
+# Копируем JAR файл
 COPY target/autovermietungapp.jar .
 
-COPY src/main/resources/application-dev.yaml /config/application-dev.yaml
+# Копируем wait-for-it.sh
+COPY wait-for-it.sh /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
 
-EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "autovermietungapp.jar", "--spring.config.location=file:/config/application-dev.yaml"]
+# Запуск с проверкой готовности базы
+CMD ["/usr/local/bin/wait-for-it.sh", "db:5432", "--", "java", "-jar", "autovermietungapp.jar"]

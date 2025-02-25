@@ -61,10 +61,13 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void deleteCarById(Integer id) {
-        if (!carRepository.existsById(id)) {
-            throw new EntityNotFoundException("Car with ID " + id + " not found");
+        Optional<Car> carForDeleting = carRepository.findCarById(id);
+
+        if(carForDeleting.isPresent()) {
+            carRepository.delete(carForDeleting.get());
+        } else {
+            throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);
         }
-        carRepository.deleteById(id);
     }
     }
 

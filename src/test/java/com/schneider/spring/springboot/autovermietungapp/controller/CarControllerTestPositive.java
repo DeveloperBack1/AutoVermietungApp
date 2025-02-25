@@ -130,27 +130,29 @@ class CarControllerTestPositive {
         );
     }
 
-@Test
-     void deleteCarById() throws Exception {
-        Integer carId = 1;
+    @Test
+    void deleteCarTest() throws Exception {
+        CarDTO carDTOTest = DtoCreator.createExpectedCarDto();
+        String jsonString = objectMapper.writeValueAsString(carDTOTest);
 
-        String jsonRequest = objectMapper.writeValueAsString(carId);
+        MvcResult createResult = mockMvc.perform(MockMvcRequestBuilders.post("/cars/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString))
+                .andReturn();
 
-        MvcResult result =
-                mockMvc.perform(delete("/cars/{id}", carId)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(jsonRequest))
-                        .andExpect(status().isOk())
-                        .andReturn();
+        Car createdCar = objectMapper.readValue(createResult.getResponse().getContentAsString(), Car.class);
+        Assertions.assertNotNull(createdCar);
 
-        String jsonResponse = result.getResponse().getContentAsString();
-        Boolean responseResult = objectMapper.readValue(jsonResponse, Boolean.class);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/cars/delete/{id}", createdCar.getId()))
+                .andExpect(status().isOk());
 
-        assertAll(
-                () -> assertEquals(200, result.getResponse().getStatus()),
-                () -> assertEquals(Boolean.TRUE, responseResult)
-        );
+        MvcResult getResult = mockMvc.perform(MockMvcRequestBuilders.get("/cars/{id}", createdCar.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
 
+        Assertions.assertEquals(404, getResult.getResponse().getStatus());
     }
+
+
 
 }

@@ -15,4 +15,9 @@ public class DtoCreator {
                 new CarDTO("Model 3", "TESLA", "120.00"),
                 new CarDTO("Golf", "VW", "55.00"));
     }
+
+
+    public static CarDTO createExpectedCarDto() {
+        return new CarDTO("TEST", "BMW", "100.00");
+    }
 }

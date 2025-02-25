@@ -112,7 +112,7 @@
             <version>3.1.1</version>
         </dependency>
 
-        <!--                swagger              -->
+        <!-- Swagger / OpenAPI для Spring Boot 3 -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
