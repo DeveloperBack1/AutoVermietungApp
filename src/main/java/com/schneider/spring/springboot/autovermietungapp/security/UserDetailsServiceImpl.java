@@ -3,7 +3,7 @@ package com.schneider.spring.springboot.autovermietungapp.security;
 import com.schneider.spring.springboot.autovermietungapp.entity.Authority;
 import com.schneider.spring.springboot.autovermietungapp.entity.Role;
 import com.schneider.spring.springboot.autovermietungapp.entity.User;
-import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages.ErrorMessage;
+import com.schneider.spring.springboot.autovermietungapp.exception.errormessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

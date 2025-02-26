@@ -77,7 +77,7 @@ public class LoggingAspect {
      * @param returnObject the return value of the controller method
      */
     @AfterReturning(returning = "returnObject", pointcut = "controllerLog()")
-    public void doAfterReturning(@Parameter(description = "Return value of the controller method") Object returnObject) {
+    public void doAfterReturning(@Parameter Object returnObject) {
         log.info("""
                         Return value: {}
                         END OF REQUEST""",

@@ -4,7 +4,7 @@ import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
-import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages.ErrorMessage;
+import com.schneider.spring.springboot.autovermietungapp.exception.errormessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.mapper.CarMapper;
 import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;

@@ -37,7 +37,6 @@ public class AuthController  {
      */
 
     @PostMapping("/login")
-    @AuthControllerAnnotationsDocs.UserLoginSwagger
     public ResponseEntity<Map<String, String>> authenticateUser(
             @Parameter(description = "Login credentials containing email and password") @RequestBody LoginRequest loginRequest) {
 

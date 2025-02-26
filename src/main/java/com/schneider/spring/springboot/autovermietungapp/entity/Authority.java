@@ -26,7 +26,7 @@ public class Authority implements Serializable {
     @Column(name = "authority_name")
     private String authorityName;
 
-    @ManyToMany(mappedBy = "authorities", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "authorities", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Role> roles;
 
     @Override

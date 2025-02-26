@@ -4,7 +4,7 @@ import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.exception.IncorrectBrandNameException;
-import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages.ErrorMessage;
+import com.schneider.spring.springboot.autovermietungapp.exception.errormessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import io.swagger.v3.oas.annotations.Parameter;
 
@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cars")
-public class CarController implements CarApiDocs{
+public class CarController {
 
     private final CarService carService;
 
