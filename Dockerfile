@@ -1,30 +1,27 @@
- #Use the official OpenJDK image
+# Используем официальный образ OpenJDK
 FROM openjdk:17-jdk-slim
 
-# Set the working directory
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Install curl to download the wait-for-it.sh script
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
-
-# Copy the jar file with the application into the container
+# Копируем jar-файл приложения в контейнер
 COPY target/autovermietungapp.jar /app/autovermietungapp.jar
 
-# Copy Spring configuration files (e.g., application.properties)
+# Копируем конфигурационные файлы Spring (например, application.properties)
 COPY src/main/resources/application.properties /app/application.properties
 
-RUN curl -o /usr/local/bin/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
-    chmod +x /usr/local/bin/wait-for-it.sh
+# Используем ADD вместо curl для загрузки wait-for-it.sh
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
 
-# Expose the application port
+# Открываем порт приложения
 EXPOSE 8080
 
-# Set environment variables for MySQL
+# Устанавливаем переменные окружения для MySQL (пароль удален)
 ENV MYSQL_HOST=localhost
 ENV MYSQL_PORT=3306
 ENV MYSQL_DB_NAME=autovermietungapp
 ENV MYSQL_USER=root
-ENV MYSQL_PASSWORD=root
 
-# Command to start the application after the database is available
+# Команда для запуска приложения после доступности базы данных
 CMD ["/usr/local/bin/wait-for-it.sh", "localhost:3306", "--", "java", "-jar", "/app/autovermietungapp.jar"]
