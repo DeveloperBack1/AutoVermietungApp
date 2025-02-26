@@ -3,7 +3,6 @@ package com.schneider.spring.springboot.autovermietungapp.config;
 import com.schneider.spring.springboot.autovermietungapp.security.UserDetailsServiceImpl;
 import com.schneider.spring.springboot.autovermietungapp.security.jwt.JwtFilter;
 import com.schneider.spring.springboot.autovermietungapp.security.utility.SecurityPermission;
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,17 +43,16 @@ public class SecurityConfig {
      * @return configured SecurityFilterChain instance
      */
 
-    //todo
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .logout(logout -> logout.deleteCookies("JSESSIONID"))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(SecurityPermission.SWAGGER_AND_LOGIN_PERMISSIONS).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/cars/getByBrand/{brand}").hasAnyAuthority(SecurityPermission.GET_BY_BRAND_PERMISSIONS)
-                        .requestMatchers(HttpMethod.GET, "/cars/getByModel/{model}").hasAnyAuthority(SecurityPermission.GET_BY_MODEL_PERMISSIONS)
-                        .requestMatchers(HttpMethod.POST, "/cars/create").hasAnyAuthority(SecurityPermission.CARS_CREATE_PERMISSIONS)
-                        .requestMatchers(HttpMethod.DELETE, "/cars/delete/{id}").hasAnyAuthority(SecurityPermission.CARS_DELETE_PERMISSIONS)
+                        .requestMatchers(SecurityPermission.getSwaggerAndLoginPermissions()).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/cars/getByBrand/{brand}").hasAnyAuthority(SecurityPermission.getGetByBrandPermissions())
+                        .requestMatchers(HttpMethod.GET, "/cars/getByModel/{model}").hasAnyAuthority(SecurityPermission.getGetByModelPermissions())
+                        .requestMatchers(HttpMethod.POST, "/cars/create").hasAnyAuthority(SecurityPermission.getCarsCreatePermissions())
+                        .requestMatchers(HttpMethod.DELETE, "/cars/delete/{id}").hasAnyAuthority(SecurityPermission.getCarsDeletePermissions())
                         .requestMatchers(HttpMethod.GET, "/cars/getAll").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

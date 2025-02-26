@@ -6,10 +6,8 @@ import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.exception.IncorrectBrandNameException;
 import com.schneider.spring.springboot.autovermietungapp.exception.errorMessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +17,10 @@ import java.util.List;
  * <p>
  * This controller provides endpoints for retrieving, creating, and deleting cars.
  */
+
 @RestController
 @RequestMapping("/cars")
-public class CarController {
+public class CarController implements CarApiDocs{
 
     private final CarService carService;
 
@@ -35,13 +34,7 @@ public class CarController {
      * @return List of car DTOs
      */
 
-    //todo
     @GetMapping("/getAll")
-    @Operation(summary = "Get all cars", description = "Fetches a list of all cars from the database.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved list of cars"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     public List<CarDTO> getAllCars() {
         return carService.getAllCars();
     }
@@ -53,14 +46,8 @@ public class CarController {
      * @return List of car DTOs matching the given brand
      */
 
-    //todo
+
     @GetMapping("/getByBrand/{brand}")
-    @Operation(summary = "Get cars by brand", description = "Fetches a list of cars filtered by the provided brand.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved cars by brand"),
-            @ApiResponse(responseCode = "400", description = "Bad request: incorrect brand name"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     public List<CarDTO> getCarsByBrand(
             @Parameter(description = "The brand of the car to filter by") @PathVariable String brand) {
         brandValidator(brand);
@@ -74,13 +61,7 @@ public class CarController {
      * @return List of car DTOs matching the given model
      */
 
-    //todo
     @GetMapping("/getByModel/{model}")
-    @Operation(summary = "Get cars by model", description = "Fetches a list of cars filtered by the provided model.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved cars by model"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     public List<CarDTO> getCarsByModel(
             @Parameter(description = "The model of the car to filter by") @PathVariable String model) {
         return carService.getCarsByModel(model);
@@ -93,14 +74,7 @@ public class CarController {
      * @return the created car entity
      */
 
-    //todo
     @PostMapping("/create")
-    @Operation(summary = "Create a new car", description = "Creates a new car entry in the system.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Successfully created new car"),
-            @ApiResponse(responseCode = "400", description = "Bad request: invalid car data"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     public Car createCar(@RequestBody CarDTO carDTO) {
         return carService.createCar(carDTO);
     }
@@ -111,14 +85,7 @@ public class CarController {
      * @param id the ID of the car to be deleted
      */
 
-    //todo
-    @DeleteMapping(value = "/delete/{id}")
-    @Operation(summary = "Delete a car", description = "Deletes a car by its ID.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully deleted car"),
-            @ApiResponse(responseCode = "404", description = "Car not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
+    @DeleteMapping("/delete/{id}")
     public void deleteCarById(@PathVariable Integer id) {
         carService.deleteCarById(id);
     }
@@ -129,6 +96,7 @@ public class CarController {
      * @param brand the brand to be validated
      * @throws IncorrectBrandNameException if the brand is not valid
      */
+
     private void brandValidator(String brand) {
         Brand[] brands = Brand.values();
         int count = 0;

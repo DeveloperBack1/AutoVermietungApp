@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql(scripts = {"/db/schema-test.sql", "/db/data-test.sql"})
 @WithMockUser(value = "ADMIN", password = "qqq", roles = {"USER", "ADMIN"})
-class CarControllerWithExceptionTest {
+ class CarControllerWithExceptionTest {
 
     @Autowired
     private MockMvc mockMvc;
