@@ -56,6 +56,4 @@ public class SecurityPermission {
             "ROLE_ADMIN",
             "WRITE_PRIVILEGES"
     };
-
 }
-

@@ -48,11 +48,12 @@ public class LoggingAspect {
     public void doBeforeController(JoinPoint jp) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = Objects.requireNonNull(attributes).getRequest();
-        log.info("NEW REQUEST:\n" +
-                        "IP : {}\n" +
-                        "URL : {}\n" +
-                        "HTTP_METHOD : {}\n" +
-                        "CONTROLLER_METHOD : {}.{}",
+        log.info("""
+                        NEW REQUEST:
+                        IP : {}
+                        URL : {}
+                        HTTP_METHOD : {}
+                        CONTROLLER_METHOD : {}.{}""",
                 request.getRemoteAddr(),
                 request.getRequestURL().toString(),
                 request.getMethod(),
@@ -81,8 +82,9 @@ public class LoggingAspect {
     @AfterReturning(returning = "returnObject", pointcut = "controllerLog()")
     @Operation(summary = "Log controller method response", description = "Logs the return value of a controller method after execution")
     public void doAfterReturning(@Parameter(description = "Return value of the controller method") Object returnObject) {
-        log.info("\nReturn value: {}\n" +
-                        "END OF REQUEST",
+        log.info("""
+                        Return value: {}
+                        END OF REQUEST""",
                 returnObject);
     }
 

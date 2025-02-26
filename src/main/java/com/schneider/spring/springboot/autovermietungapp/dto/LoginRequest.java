@@ -13,10 +13,6 @@ import lombok.Setter;
 @Setter
 @Schema(description = "Login request containing user credentials for authentication")
 public class LoginRequest {
-
-    @Schema(description = "The email of the user", example = "user@example.com", required = true)
     private String email;
-
-    @Schema(description = "The password of the user", example = "password123", required = true)
     private String password;
 }

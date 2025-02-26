@@ -48,10 +48,12 @@ public class CarMapperImpl implements CarMapper {
     @Override
     public Car toCar(CarDTO carDTO) {
         Car car = new Car();
+
         car.setModel(carDTO.getModel());
         String brandFromDTO = carDTO.getBrand();
         Brand brand = Brand.valueOf(brandFromDTO.toUpperCase());
         car.setBrand(brand);
+
         String pricePerDayFromDTO = carDTO.getPricePerDay();
         BigDecimal pricePerDay = BigDecimal.valueOf(Double.parseDouble(pricePerDayFromDTO));
         car.setPricePerDay(pricePerDay);

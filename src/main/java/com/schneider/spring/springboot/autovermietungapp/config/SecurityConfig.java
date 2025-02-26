@@ -4,7 +4,6 @@ import com.schneider.spring.springboot.autovermietungapp.security.UserDetailsSer
 import com.schneider.spring.springboot.autovermietungapp.security.jwt.JwtFilter;
 import com.schneider.spring.springboot.autovermietungapp.security.utility.SecurityPermission;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,7 +45,8 @@ public class SecurityConfig {
      * @return configured SecurityFilterChain instance
      */
     @Bean
-    @Operation(summary = "Configure HTTP Security", description = "Sets up the security filter chain for the API endpoints, JWT authentication, and CSRF protection.")
+    @Operation(summary = "Configure HTTP Security",
+            description = "Sets up the security filter chain for the API endpoints, JWT authentication, and CSRF protection.")
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .logout(logout -> logout.deleteCookies("JSESSIONID"))

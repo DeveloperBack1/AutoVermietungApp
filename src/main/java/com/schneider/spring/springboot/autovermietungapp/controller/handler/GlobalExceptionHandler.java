@@ -2,8 +2,6 @@ package com.schneider.spring.springboot.autovermietungapp.controller.handler;
 
 import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
 import com.schneider.spring.springboot.autovermietungapp.exception.IncorrectBrandNameException;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,9 +23,6 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity with error message and status code
      */
     @ExceptionHandler(CarsNotExistInDataBaseException.class)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "400", description = "Bad Request: Cars not found in the database")
-    })
     public ResponseEntity<String> handleCarsNotExistException(CarsNotExistInDataBaseException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
@@ -39,9 +34,6 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity with error message and status code
      */
     @ExceptionHandler(IncorrectBrandNameException.class)
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "400", description = "Bad Request: Incorrect brand name")
-    })
     public ResponseEntity<String> handleIncorrectBrandNameException(IncorrectBrandNameException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
