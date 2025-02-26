@@ -16,6 +16,7 @@ import java.util.Optional;
 public class IDCheckerImpl implements ConstraintValidator<IDChecker, String> {
 
     // Pattern for validating the ID: alphanumeric and word characters
+    //todo
     private static final String idPattern = "\\w+";
 
     /**

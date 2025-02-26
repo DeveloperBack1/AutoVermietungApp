@@ -95,8 +95,6 @@ class CarControllerWithExceptionTest {
         Integer nonExistingId = 999;
         when(carRepository.findCarById(nonExistingId)).thenReturn(Optional.empty());
 
-        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> {
-            carService.deleteCarById(nonExistingId);
-        });
+        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.deleteCarById(nonExistingId));
     }
 }

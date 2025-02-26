@@ -31,7 +31,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtFilter jwtfilter;
 
@@ -44,9 +43,9 @@ public class SecurityConfig {
      * @param http the HttpSecurity instance
      * @return configured SecurityFilterChain instance
      */
+
+    //todo
     @Bean
-    @Operation(summary = "Configure HTTP Security",
-            description = "Sets up the security filter chain for the API endpoints, JWT authentication, and CSRF protection.")
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .logout(logout -> logout.deleteCookies("JSESSIONID"))
@@ -54,8 +53,8 @@ public class SecurityConfig {
                         .requestMatchers(SecurityPermission.SWAGGER_AND_LOGIN_PERMISSIONS).permitAll()
                         .requestMatchers(HttpMethod.GET, "/cars/getByBrand/{brand}").hasAnyAuthority(SecurityPermission.GET_BY_BRAND_PERMISSIONS)
                         .requestMatchers(HttpMethod.GET, "/cars/getByModel/{model}").hasAnyAuthority(SecurityPermission.GET_BY_MODEL_PERMISSIONS)
-                        .requestMatchers(HttpMethod.POST, "/cars/create").hasAnyAuthority(SecurityPermission.CREATE_CAR_PERMISSIONS)
-                        .requestMatchers(HttpMethod.DELETE, "/cars/delete/{id}").hasAnyAuthority(SecurityPermission.CAR_DELETE)
+                        .requestMatchers(HttpMethod.POST, "/cars/create").hasAnyAuthority(SecurityPermission.CARS_CREATE_PERMISSIONS)
+                        .requestMatchers(HttpMethod.DELETE, "/cars/delete/{id}").hasAnyAuthority(SecurityPermission.CARS_DELETE_PERMISSIONS)
                         .requestMatchers(HttpMethod.GET, "/cars/getAll").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -71,7 +70,6 @@ public class SecurityConfig {
      * @return PasswordEncoder instance
      */
     @Bean
-    @Operation(summary = "Password Encoder", description = "Defines the password encoder used to encrypt user passwords.")
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -84,7 +82,6 @@ public class SecurityConfig {
      * @return AuthenticationProvider instance
      */
     @Bean
-    @Operation(summary = "Authentication Provider", description = "Configures the authentication provider with user details service and password encoder.")
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
@@ -100,7 +97,6 @@ public class SecurityConfig {
      * @throws Exception if there is a configuration error
      */
     @Bean
-    @Operation(summary = "Authentication Manager", description = "Configures the authentication manager for the application.")
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }

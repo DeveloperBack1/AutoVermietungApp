@@ -37,6 +37,8 @@ public class AuthController {
      * @param loginRequest the login credentials (email and password)
      * @return ResponseEntity containing the JWT token
      */
+
+    //todo
     @PostMapping("/login")
     @Operation(summary = "User Login", description = "Authenticates a user with the provided credentials and returns a JWT token.")
     @ApiResponses(value = {

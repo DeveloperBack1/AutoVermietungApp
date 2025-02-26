@@ -1,6 +1,5 @@
 package com.schneider.spring.springboot.autovermietungapp.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,7 +46,9 @@ public class Rental {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rental rental = (Rental) o;
-        return id == rental.id && Objects.equals(startDate, rental.startDate) && Objects.equals(endDate, rental.endDate) && Objects.equals(totalCost, rental.totalCost);
+        return id == rental.id && Objects.equals(startDate, rental.startDate)
+                && Objects.equals(endDate, rental.endDate)
+                && Objects.equals(totalCost, rental.totalCost);
     }
 
     @Override

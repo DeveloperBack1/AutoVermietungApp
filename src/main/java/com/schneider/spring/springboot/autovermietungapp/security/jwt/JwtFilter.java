@@ -35,8 +35,8 @@ public class JwtFilter extends OncePerRequestFilter {
     /**
      * Constructor that initializes the JWT utility and user details service.
      *
-     * @param jwtUtils            The JWT utility to validate and parse the JWT token.
-     * @param userDetailsService  The service to load user details for authentication.
+     * @param jwtUtils           The JWT utility to validate and parse the JWT token.
+     * @param userDetailsService The service to load user details for authentication.
      */
     public JwtFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService) {
         this.jwtUtils = jwtUtils;
@@ -47,11 +47,11 @@ public class JwtFilter extends OncePerRequestFilter {
      * Intercepts the HTTP request to extract and validate the JWT token.
      * If the token is valid, the user authentication is set in the security context.
      *
-     * @param request    The HTTP request to be processed.
-     * @param response   The HTTP response to be sent.
+     * @param request     The HTTP request to be processed.
+     * @param response    The HTTP response to be sent.
      * @param filterChain The filter chain to proceed with after processing.
      * @throws ServletException if an error occurs during filtering.
-     * @throws IOException if an I/O error occurs.
+     * @throws IOException      if an I/O error occurs.
      */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,

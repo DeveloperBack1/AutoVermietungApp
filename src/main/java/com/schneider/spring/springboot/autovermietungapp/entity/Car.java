@@ -1,8 +1,6 @@
 package com.schneider.spring.springboot.autovermietungapp.entity;
 
 import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.annotation.Generated;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

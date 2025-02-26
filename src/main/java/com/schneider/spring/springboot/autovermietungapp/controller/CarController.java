@@ -34,6 +34,8 @@ public class CarController {
      *
      * @return List of car DTOs
      */
+
+    //todo
     @GetMapping("/getAll")
     @Operation(summary = "Get all cars", description = "Fetches a list of all cars from the database.")
     @ApiResponses(value = {
@@ -50,6 +52,8 @@ public class CarController {
      * @param brand the brand of the car
      * @return List of car DTOs matching the given brand
      */
+
+    //todo
     @GetMapping("/getByBrand/{brand}")
     @Operation(summary = "Get cars by brand", description = "Fetches a list of cars filtered by the provided brand.")
     @ApiResponses(value = {
@@ -69,6 +73,8 @@ public class CarController {
      * @param model the model of the car
      * @return List of car DTOs matching the given model
      */
+
+    //todo
     @GetMapping("/getByModel/{model}")
     @Operation(summary = "Get cars by model", description = "Fetches a list of cars filtered by the provided model.")
     @ApiResponses(value = {
@@ -86,6 +92,8 @@ public class CarController {
      * @param carDTO the car data to be added
      * @return the created car entity
      */
+
+    //todo
     @PostMapping("/create")
     @Operation(summary = "Create a new car", description = "Creates a new car entry in the system.")
     @ApiResponses(value = {
@@ -102,6 +110,8 @@ public class CarController {
      *
      * @param id the ID of the car to be deleted
      */
+
+    //todo
     @DeleteMapping(value = "/delete/{id}")
     @Operation(summary = "Delete a car", description = "Deletes a car by its ID.")
     @ApiResponses(value = {

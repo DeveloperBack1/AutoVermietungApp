@@ -30,7 +30,7 @@ public class CarServiceImpl implements CarService {
      * Constructs a new CarServiceImpl with the provided repository and mapper.
      *
      * @param carRepository the repository to access car data
-     * @param carMapper the mapper to convert between entities and DTOs
+     * @param carMapper     the mapper to convert between entities and DTOs
      */
     public CarServiceImpl(CarRepository carRepository, CarMapper carMapper) {
         this.carRepository = carRepository;
@@ -119,7 +119,7 @@ public class CarServiceImpl implements CarService {
     public void deleteCarById(Integer id) {
         Optional<Car> carForDeleting = carRepository.findCarById(id);
 
-        if(carForDeleting.isPresent()) {
+        if (carForDeleting.isPresent()) {
             carRepository.delete(carForDeleting.get());
         } else {
             throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);

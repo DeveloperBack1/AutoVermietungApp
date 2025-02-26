@@ -13,7 +13,7 @@ COPY target/autovermietungapp.jar /app/autovermietungapp.jar
 # Копируем конфигурационные файлы Spring (например, application.properties)
 COPY src/main/resources/application.properties /app/application.properties
 
-# Скачиваем wait-for-it.sh из репозитория на GitHub
+# todo Скачиваем wait-for-it.sh из репозитория на GitHub
 RUN curl -o /usr/local/bin/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
     chmod +x /usr/local/bin/wait-for-it.sh
 
