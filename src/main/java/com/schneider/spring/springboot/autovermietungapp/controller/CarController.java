@@ -1,5 +1,6 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
 
+import com.schneider.spring.springboot.autovermietungapp.controller.annotation.*;
 import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
@@ -34,7 +35,7 @@ public class CarController {
      * @return List of car DTOs
      */
 
-    @GetMapping("/getAll")
+  @GetAllCars(path="/getAll")
     public List<CarDTO> getAllCars() {
         return carService.getAllCars();
     }
@@ -47,12 +48,12 @@ public class CarController {
      */
 
 
-    @GetMapping("/getByBrand/{brand}")
-    public List<CarDTO> getCarsByBrand(
-            @Parameter(description = "The brand of the car to filter by") @PathVariable String brand) {
+    @GetCarsByBrand(path="/getByBrand/{brand}")
+    public List<CarDTO> getCarsByBrand(@PathVariable String brand) {
         brandValidator(brand);
         return carService.getCarsByBrand(brand);
     }
+
 
     /**
      * Retrieves cars by their model.
@@ -61,7 +62,7 @@ public class CarController {
      * @return List of car DTOs matching the given model
      */
 
-    @GetMapping("/getByModel/{model}")
+    @GetCarsByModel(path="/getByModel/{model}")
     public List<CarDTO> getCarsByModel(
             @Parameter(description = "The model of the car to filter by") @PathVariable String model) {
         return carService.getCarsByModel(model);
@@ -74,7 +75,7 @@ public class CarController {
      * @return the created car entity
      */
 
-    @PostMapping("/create")
+    @CreateCar(path = "/create")
     public Car createCar(@RequestBody CarDTO carDTO) {
         return carService.createCar(carDTO);
     }
@@ -85,7 +86,7 @@ public class CarController {
      * @param id the ID of the car to be deleted
      */
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteCarById(path="/delete/{id}")
     public void deleteCarById(@PathVariable Integer id) {
         carService.deleteCarById(id);
     }

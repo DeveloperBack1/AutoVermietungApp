@@ -1,5 +1,6 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
 
+import com.schneider.spring.springboot.autovermietungapp.controller.annotation.LoginEndpoint;
 import com.schneider.spring.springboot.autovermietungapp.dto.LoginRequest;
 import com.schneider.spring.springboot.autovermietungapp.security.jwt.JwtUtils;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -37,6 +38,7 @@ public class AuthController  {
      */
 
     @PostMapping("/login")
+    @LoginEndpoint
     public ResponseEntity<Map<String, String>> authenticateUser(
             @Parameter(description = "Login credentials containing email and password") @RequestBody LoginRequest loginRequest) {
 
