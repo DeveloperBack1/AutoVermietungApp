@@ -5,6 +5,7 @@ package com.schneider.spring.springboot.autovermietungapp.exception.errormessage
  * <p>
  * These error messages are used to communicate error states to the user in a consistent manner.
  */
+
 public class ErrorMessage {
 
     public static final String CARS_NOT_EXIST_IN_DATABASE

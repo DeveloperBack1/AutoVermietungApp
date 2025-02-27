@@ -8,9 +8,7 @@ import com.schneider.spring.springboot.autovermietungapp.exception.IncorrectBran
 import com.schneider.spring.springboot.autovermietungapp.exception.errormessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import io.swagger.v3.oas.annotations.Parameter;
-
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 /**
@@ -47,13 +45,11 @@ public class CarController {
      * @return List of car DTOs matching the given brand
      */
 
-
     @GetCarsByBrand(path="/getByBrand/{brand}")
     public List<CarDTO> getCarsByBrand(@PathVariable String brand) {
         brandValidator(brand);
         return carService.getCarsByBrand(brand);
     }
-
 
     /**
      * Retrieves cars by their model.

@@ -9,7 +9,6 @@ import com.schneider.spring.springboot.autovermietungapp.mapper.CarMapper;
 import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +19,7 @@ import java.util.Optional;
  * for interacting with car data, including retrieving, creating, and deleting cars from the database.
  * </p>
  */
+
 @Service
 public class CarServiceImpl implements CarService {
 
@@ -32,6 +32,7 @@ public class CarServiceImpl implements CarService {
      * @param carRepository the repository to access car data
      * @param carMapper     the mapper to convert between entities and DTOs
      */
+
     public CarServiceImpl(CarRepository carRepository, CarMapper carMapper) {
         this.carRepository = carRepository;
         this.carMapper = carMapper;
@@ -45,6 +46,7 @@ public class CarServiceImpl implements CarService {
      *
      * @return a list of CarDTO representing all cars
      */
+
     @Override
     public List<CarDTO> getAllCars() {
         List<Car> list = carRepository.findAll();
@@ -64,6 +66,7 @@ public class CarServiceImpl implements CarService {
      * @param carDTO the CarDTO containing the car data to create
      * @return the created Car entity
      */
+
     @Override
     public Car createCar(CarDTO carDTO) {
         return carRepository.saveAndFlush(carMapper.toCar(carDTO));
@@ -78,6 +81,7 @@ public class CarServiceImpl implements CarService {
      * @param brand the brand of cars to filter by
      * @return a list of CarDTO representing the cars with the specified brand
      */
+
     @Override
     public List<CarDTO> getCarsByBrand(String brand) {
         Brand brandUppercase = Brand.valueOf(brand.toUpperCase());
@@ -98,6 +102,7 @@ public class CarServiceImpl implements CarService {
      * @param model the model of cars to filter by
      * @return a list of CarDTO representing the cars with the specified model
      */
+
     @Override
     public List<CarDTO> getCarsByModel(String model) {
         List<Car> list = carRepository.findCarsByModel(model);
@@ -115,6 +120,7 @@ public class CarServiceImpl implements CarService {
      *
      * @param id the ID of the car to delete
      */
+
     @Override
     public void deleteCarById(Integer id) {
         Optional<Car> carForDeleting = carRepository.findCarById(id);

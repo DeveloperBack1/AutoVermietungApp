@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
@@ -15,6 +14,7 @@ import java.util.Set;
  * <p>
  * This entity is used for authentication and authorization in the system, including roles and authorities.
  */
+
 @Getter
 @Setter
 @Entity

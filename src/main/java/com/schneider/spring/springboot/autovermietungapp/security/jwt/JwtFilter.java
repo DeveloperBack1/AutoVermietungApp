@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-
 import static org.springframework.util.StringUtils.hasText;
 
 /**
@@ -25,6 +24,7 @@ import static org.springframework.util.StringUtils.hasText;
  * This class extends {@link OncePerRequestFilter} and is responsible for extracting the JWT
  * from the request, validating it, and setting the authenticated user in the Spring Security context.
  */
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
@@ -38,6 +38,7 @@ public class JwtFilter extends OncePerRequestFilter {
      * @param jwtUtils           The JWT utility to validate and parse the JWT token.
      * @param userDetailsService The service to load user details for authentication.
      */
+
     public JwtFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService) {
         this.jwtUtils = jwtUtils;
         this.userDetailsService = userDetailsService;
@@ -53,6 +54,7 @@ public class JwtFilter extends OncePerRequestFilter {
      * @throws ServletException if an error occurs during filtering.
      * @throws IOException      if an I/O error occurs.
      */
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
@@ -82,6 +84,7 @@ public class JwtFilter extends OncePerRequestFilter {
      * @param request The HTTP request to extract the token from.
      * @return The JWT token if found and valid, otherwise null.
      */
+
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
 

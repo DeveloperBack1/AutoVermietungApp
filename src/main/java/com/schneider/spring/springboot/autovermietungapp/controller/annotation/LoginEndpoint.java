@@ -16,6 +16,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation for the user login endpoint.
  */
+
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @RequestMapping

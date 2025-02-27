@@ -7,6 +7,7 @@ import lombok.experimental.UtilityClass;
  * These constants represent the roles and permissions required for specific API endpoints.
  * This class is marked as a utility class, as it provides only static values and should not be instantiated.
  */
+
 @UtilityClass
 public class SecurityPermission {
 
@@ -34,7 +35,6 @@ public class SecurityPermission {
      * These permissions require the user to have either the 'ROLE_USER' or 'READ_PRIVILEGES' authority.
      */
 
-
     private final String[] GET_BY_BRAND_PERMISSIONS = {
             ROLE_USER,
             READ_PRIVILEGES
@@ -44,7 +44,6 @@ public class SecurityPermission {
      * Permissions for accessing the car data by model.
      * These permissions require the user to have either the 'ROLE_ADMIN' or 'READ_PRIVILEGES' authority.
      */
-
 
     private final String[] GET_BY_MODEL_PERMISSIONS = {
             ROLE_ADMIN,
@@ -56,7 +55,6 @@ public class SecurityPermission {
      * These permissions require the user to have the 'ROLE_ADMIN' or 'WRITE_PRIVILEGES' authority.
      */
 
-
     private final String[] CARS_CREATE_PERMISSIONS = {
             ROLE_ADMIN,
             WRITE_PRIVILEGES
@@ -66,7 +64,6 @@ public class SecurityPermission {
      * Permissions for deleting a car entry.
      * These permissions require the user to have the 'ROLE_ADMIN' or 'WRITE_PRIVILEGES' authority.
      */
-
 
     private  final String[] CARS_DELETE_PERMISSIONS = {
             ROLE_ADMIN,

@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * This class configures Spring Security to handle authentication, authorization,
  * and JWT token filtering for secure endpoints.
  */
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -67,6 +68,7 @@ public class SecurityConfig {
      *
      * @return PasswordEncoder instance
      */
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -79,6 +81,7 @@ public class SecurityConfig {
      *
      * @return AuthenticationProvider instance
      */
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -94,6 +97,7 @@ public class SecurityConfig {
      * @return AuthenticationManager instance
      * @throws Exception if there is a configuration error
      */
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

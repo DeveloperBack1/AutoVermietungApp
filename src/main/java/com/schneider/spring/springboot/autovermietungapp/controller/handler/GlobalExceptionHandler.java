@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * This class handles the exceptions related to cars not existing in the database and
  * incorrect brand names and returns a meaningful error message with appropriate HTTP status codes.
  */
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -22,6 +23,7 @@ public class GlobalExceptionHandler {
      * @param ex the exception instance
      * @return ResponseEntity with error message and status code
      */
+
     @ExceptionHandler(CarsNotExistInDataBaseException.class)
     public ResponseEntity<String> handleCarsNotExistException(CarsNotExistInDataBaseException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
@@ -33,6 +35,7 @@ public class GlobalExceptionHandler {
      * @param ex the exception instance
      * @return ResponseEntity with error message and status code
      */
+
     @ExceptionHandler(IncorrectBrandNameException.class)
     public ResponseEntity<String> handleIncorrectBrandNameException(IncorrectBrandNameException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());

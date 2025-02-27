@@ -3,7 +3,6 @@ package com.schneider.spring.springboot.autovermietungapp.repository;
 import com.schneider.spring.springboot.autovermietungapp.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
 
 /**
@@ -12,6 +11,7 @@ import java.util.Optional;
  * This interface extends {@link JpaRepository} to provide standard CRUD functionality
  * and includes a custom method for querying {@link User} entities by email.
  */
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
@@ -21,5 +21,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @param email the email address of the user to be queried.
      * @return an {@link Optional} containing the found {@link User} or empty if not found.
      */
+
     Optional<User> findUserByEmail(String email);
 }

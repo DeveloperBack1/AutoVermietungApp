@@ -5,6 +5,7 @@ package com.schneider.spring.springboot.autovermietungapp.exception;
  * <p>
  * This exception is used to handle situations where a request is made for cars, but there are no cars available in the database.
  */
+
 public class CarsNotExistInDataBaseException extends RuntimeException {
     public CarsNotExistInDataBaseException(String message) {
         super(message);

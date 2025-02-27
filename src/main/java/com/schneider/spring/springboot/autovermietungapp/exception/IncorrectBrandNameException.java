@@ -6,6 +6,7 @@ package com.schneider.spring.springboot.autovermietungapp.exception;
  * This exception is used to handle situations where an invalid brand name is supplied
  * and does not match any available brands in the system.
  */
+
 public class IncorrectBrandNameException extends RuntimeException {
     public IncorrectBrandNameException(String message) {
         super(message);
