@@ -16,7 +16,6 @@ import java.util.List;
  * <p>
  * This controller provides endpoints for retrieving, creating, and deleting cars.
  */
-
 @RestController
 @RequestMapping("/cars")
 public class CarController {
@@ -32,7 +31,6 @@ public class CarController {
      *
      * @return List of car DTOs
      */
-
   @GetAllCars(path="/getAll")
     public List<CarDTO> getAllCars() {
         return carService.getAllCars();
@@ -44,7 +42,6 @@ public class CarController {
      * @param brand the brand of the car
      * @return List of car DTOs matching the given brand
      */
-
     @GetCarsByBrand(path="/getByBrand/{brand}")
     public List<CarDTO> getCarsByBrand(@PathVariable String brand) {
         brandValidator(brand);
@@ -57,7 +54,6 @@ public class CarController {
      * @param model the model of the car
      * @return List of car DTOs matching the given model
      */
-
     @GetCarsByModel(path="/getByModel/{model}")
     public List<CarDTO> getCarsByModel(
             @Parameter(description = "The model of the car to filter by") @PathVariable String model) {
@@ -70,7 +66,6 @@ public class CarController {
      * @param carDTO the car data to be added
      * @return the created car entity
      */
-
     @CreateCar(path = "/create")
     public Car createCar(@RequestBody CarDTO carDTO) {
         return carService.createCar(carDTO);
@@ -81,7 +76,6 @@ public class CarController {
      *
      * @param id the ID of the car to be deleted
      */
-
     @DeleteCarById(path="/delete/{id}")
     public void deleteCarById(@PathVariable Integer id) {
         carService.deleteCarById(id);
@@ -93,7 +87,6 @@ public class CarController {
      * @param brand the brand to be validated
      * @throws IncorrectBrandNameException if the brand is not valid
      */
-
     private void brandValidator(String brand) {
         Brand[] brands = Brand.values();
         int count = 0;

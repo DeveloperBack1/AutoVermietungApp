@@ -10,7 +10,6 @@ import java.util.List;
  * This interface defines methods for converting a list of {@link Car} entities to a list of {@link CarDTO}
  * objects and vice versa, ensuring proper data mapping between the two.
  */
-
 public interface CarMapper {
 
     /**
@@ -19,7 +18,6 @@ public interface CarMapper {
      * @param carList the list of {@link Car} entities to be converted.
      * @return the corresponding list of {@link CarDTO} objects.
      */
-
     List<CarDTO> toCarDTOList(List<Car> carList);
 
     /**
@@ -28,6 +26,5 @@ public interface CarMapper {
      * @param carDTO the {@link CarDTO} object to be converted.
      * @return the corresponding {@link Car} entity.
      */
-
     Car toCar(CarDTO carDTO);
 }

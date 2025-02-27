@@ -5,7 +5,6 @@ import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.mapper.CarMapper;
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ import java.util.List;
  * This class provides methods to convert a list of {@link Car} objects into a list of {@link CarDTO} objects
  * and vice versa, ensuring proper data mapping between the two.
  */
-
 @Component
 public class CarMapperImpl implements CarMapper {
 
@@ -26,7 +24,6 @@ public class CarMapperImpl implements CarMapper {
      * @param carList the list of {@link Car} entities to be converted.
      * @return the corresponding list of {@link CarDTO} objects.
      */
-
     @Override
     public List<CarDTO> toCarDTOList(List<Car> carList) {
         List<CarDTO> carDTOList = new ArrayList<>();
@@ -47,7 +44,6 @@ public class CarMapperImpl implements CarMapper {
      * @param carDTO the {@link CarDTO} object to be converted.
      * @return the corresponding {@link Car} entity.
      */
-
     @Override
     public Car toCar(CarDTO carDTO) {
         Car car = new Car();

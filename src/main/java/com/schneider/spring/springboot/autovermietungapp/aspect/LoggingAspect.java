@@ -17,7 +17,6 @@ import java.util.Objects;
  * This class logs requests, services executed, return values, and any exceptions thrown.
  * It is applied to all public methods within the controllers and services of the AutoVermietungApp.
  */
-
 @Aspect
 @Component
 @Slf4j
@@ -26,7 +25,6 @@ public class LoggingAspect {
     /**
      * Pointcut for controller methods.
      */
-
     @Pointcut("execution(public * com.schneider.spring.springboot.autovermietungapp.controller.*.*(..))")
     public void controllerLog() {
     }
@@ -34,7 +32,6 @@ public class LoggingAspect {
     /**
      * Pointcut for service methods.
      */
-
     @Pointcut("execution(public * com.schneider.spring.springboot.autovermietungapp.*.*(..))")
     public void serviceLog() {
     }
@@ -44,7 +41,6 @@ public class LoggingAspect {
      *
      * @param jp the join point representing the controller method
      */
-
     @Before("controllerLog()")
     public void doBeforeController(JoinPoint jp) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -67,7 +63,6 @@ public class LoggingAspect {
      *
      * @param jp the join point representing the service method
      */
-
     @Before("serviceLog()")
     public void doBeforeService(JoinPoint jp) {
         log.info("RUN SERVICE:\n" +
@@ -80,7 +75,6 @@ public class LoggingAspect {
      *
      * @param returnObject the return value of the controller method
      */
-
     @AfterReturning(returning = "returnObject", pointcut = "controllerLog()")
     public void doAfterReturning(@Parameter Object returnObject) {
         log.info("""
@@ -95,7 +89,6 @@ public class LoggingAspect {
      * @param jp the join point representing the controller method
      * @param ex the exception thrown by the controller method
      */
-
     @AfterThrowing(throwing = "ex", pointcut = "controllerLog()")
     public void throwsException(JoinPoint jp, Exception ex) {
         log.error("Request throw an exception. Cause - {}. {}",

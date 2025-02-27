@@ -9,7 +9,6 @@ import lombok.Setter;
  * <p>
  * This class is used for transferring car details between the client and the server.
  */
-
 @Setter
 @Getter
 public class CarDTO {

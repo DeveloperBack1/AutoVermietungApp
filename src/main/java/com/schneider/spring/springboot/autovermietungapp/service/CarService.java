@@ -12,7 +12,6 @@ import java.util.List;
  * retrieving, creating, and deleting cars, as well as filtering them by brand and model.
  * </p>
  */
-
 @Service
 public interface CarService {
 
@@ -24,7 +23,6 @@ public interface CarService {
      *
      * @return a list of CarDTO representing all cars
      */
-
     List<CarDTO> getAllCars();
 
     /**
@@ -36,7 +34,6 @@ public interface CarService {
      * @param carDTO the CarDTO containing the car data to create
      * @return the created Car entity
      */
-
     Car createCar(CarDTO carDTO);
 
     /**
@@ -48,7 +45,6 @@ public interface CarService {
      * @param brand the brand of cars to filter by
      * @return a list of CarDTO representing the cars with the specified brand
      */
-
     List<CarDTO> getCarsByBrand(String brand);
 
     /**
@@ -60,7 +56,6 @@ public interface CarService {
      * @param model the model of cars to filter by
      * @return a list of CarDTO representing the cars with the specified model
      */
-
     List<CarDTO> getCarsByModel(String model);
 
     /**
@@ -71,6 +66,5 @@ public interface CarService {
      *
      * @param id the ID of the car to delete
      */
-
     void deleteCarById(Integer id);
 }

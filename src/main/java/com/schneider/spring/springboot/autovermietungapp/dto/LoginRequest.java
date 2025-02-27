@@ -8,7 +8,6 @@ import lombok.Setter;
  * <p>
  * This class is used for transferring user credentials (email and password) during authentication.
  */
-
 @Getter
 @Setter
 public class LoginRequest {

@@ -14,7 +14,6 @@ import java.util.Set;
  * <p>
  * This entity defines roles for users and their associated authorities (permissions).
  */
-
 @Getter
 @Setter
 @Entity

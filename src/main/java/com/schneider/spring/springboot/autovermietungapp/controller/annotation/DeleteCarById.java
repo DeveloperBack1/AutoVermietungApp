@@ -14,7 +14,6 @@ import java.lang.annotation.Target;
 /**
  * Annotation for deleting a car by ID.
  */
-
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @RequestMapping

@@ -14,7 +14,6 @@ import java.lang.annotation.Target;
 /**
  * Annotation for retrieving cars by brand.
  */
-
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @RequestMapping

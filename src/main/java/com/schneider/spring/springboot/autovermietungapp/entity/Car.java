@@ -4,7 +4,6 @@ import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -13,7 +12,6 @@ import java.util.Objects;
  * <p>
  * This entity is used to store information about cars available for rent.
  */
-
 @Getter
 @Setter
 @Entity

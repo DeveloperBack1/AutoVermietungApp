@@ -20,7 +20,6 @@ import java.util.*;
  * from the database. This service is used by Spring Security during authentication
  * to retrieve user details based on the provided username (email).
  */
-
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -34,7 +33,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @return an instance of {@link UserDetails} containing user information and authorities.
      * @throws UsernameNotFoundException if the user with the specified email does not exist.
      */
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -66,7 +64,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @return a collection of {@link GrantedAuthority} objects that represent the user's roles
      *         and specific authorities.
      */
-
     private Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
         Set<GrantedAuthority> authorities = new HashSet<>();
 

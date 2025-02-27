@@ -13,7 +13,6 @@ import java.lang.annotation.Target;
 /**
  * Annotation for retrieving all cars.
  */
-
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @RequestMapping

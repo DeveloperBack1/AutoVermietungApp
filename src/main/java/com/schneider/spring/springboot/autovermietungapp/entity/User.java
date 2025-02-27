@@ -14,7 +14,6 @@ import java.util.Set;
  * <p>
  * This entity is used for authentication and authorization in the system, including roles and authorities.
  */
-
 @Getter
 @Setter
 @Entity

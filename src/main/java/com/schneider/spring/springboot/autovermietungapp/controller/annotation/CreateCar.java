@@ -19,7 +19,6 @@ import java.lang.annotation.Target;
 /**
  * Annotation to specify the creation of a new car.
  */
-
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @RequestMapping
@@ -95,7 +94,6 @@ import java.lang.annotation.Target;
                                 schema = @Schema(implementation = GlobalExceptionHandler.class)
                         )
                 )
-
         },
         security = {
                 @SecurityRequirement(name = "safety requirements")

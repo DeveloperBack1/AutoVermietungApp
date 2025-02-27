@@ -17,7 +17,6 @@ import java.lang.annotation.Target;
  *
  * @see IDCheckerImpl
  */
-
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = IDCheckerImpl.class)
@@ -28,6 +27,5 @@ public @interface IDChecker {
      *
      * @return the default error message
      */
-
     String message() default "ID is not valid. Must contains only NUMERIC parameter";
 }

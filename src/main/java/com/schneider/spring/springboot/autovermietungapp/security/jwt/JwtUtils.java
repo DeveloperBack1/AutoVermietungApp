@@ -22,7 +22,6 @@ import static java.util.Collections.emptyMap;
  * This class handles the generation of JWT tokens based on the authentication object,
  * and validation of JWT tokens to ensure their authenticity and expiration.
  */
-
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
@@ -38,7 +37,6 @@ public class JwtUtils {
      *
      * @return the signing key derived from the configured JWT secret.
      */
-
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(Base64.getDecoder().decode(jwtSecret));
     }
@@ -49,7 +47,6 @@ public class JwtUtils {
      * @param authentication The authentication object containing user information.
      * @return The generated JWT token.
      */
-
     public String generateJwtToken(Authentication authentication) {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
         return generateToken(userPrincipal.getUsername(), emptyMap(), jwtExpirationMs);
@@ -63,7 +60,6 @@ public class JwtUtils {
      * @param timeLive  The expiration time in milliseconds for the token.
      * @return The generated JWT token.
      */
-
     public String generateToken(String subject, Map<String, Object> claims, int timeLive) {
         return Jwts.builder()
                 .subject(subject)
@@ -80,7 +76,6 @@ public class JwtUtils {
      * @param token The JWT token to parse.
      * @return The claims in the token body.
      */
-
     public Claims getBody(String token) {
         return Jwts.parser()
                 .verifyWith(getSigningKey())
@@ -95,7 +90,6 @@ public class JwtUtils {
      * @param authToken The JWT token to validate.
      * @return {@code true} if the token is valid, otherwise {@code false}.
      */
-
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser()

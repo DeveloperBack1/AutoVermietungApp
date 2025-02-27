@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.info.License;
  * This configuration provides metadata for the API including the title, description, version,
  * and contact information.
  */
-
 @OpenAPIDefinition(
         info = @Info(
                 title = "Autovermietung project API",
