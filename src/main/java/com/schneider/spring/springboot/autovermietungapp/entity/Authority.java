@@ -1,6 +1,5 @@
 package com.schneider.spring.springboot.autovermietungapp.entity;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +9,6 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-@Generated("Excluded from Jacoco coverage")
 @Getter
 @Setter
 @Entity
@@ -28,7 +26,7 @@ public class Authority implements Serializable {
     @Column(name = "authority_name")
     private String authorityName;
 
-    @ManyToMany(mappedBy = "authorities", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "authorities", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Role> roles;
 
     @Override
@@ -36,8 +34,7 @@ public class Authority implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Authority authority = (Authority) o;
-        return id == authority.id && Objects.equals(authorityName,
-                authority.authorityName);
+        return id == authority.id && Objects.equals(authorityName, authority.authorityName);
     }
 
     @Override

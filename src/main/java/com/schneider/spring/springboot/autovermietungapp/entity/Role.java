@@ -1,4 +1,5 @@
 package com.schneider.spring.springboot.autovermietungapp.entity;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,11 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Entity representing a role within the system.
+ * <p>
+ * This entity defines roles for users and their associated authorities (permissions).
+ */
 @Getter
 @Setter
 @Entity
@@ -26,7 +32,7 @@ public class Role implements GrantedAuthority, Serializable {
     @Column(name = "role_name")
     private String roleName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "roles_authorities",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id"))

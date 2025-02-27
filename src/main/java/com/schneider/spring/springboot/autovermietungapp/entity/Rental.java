@@ -8,6 +8,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Entity representing a car rental transaction.
+ * <p>
+ * This entity stores rental details such as start and end date, total cost, and the associated user and car.
+ */
 @Getter
 @Setter
 @Entity
@@ -41,7 +46,9 @@ public class Rental {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rental rental = (Rental) o;
-        return id == rental.id && Objects.equals(startDate, rental.startDate) && Objects.equals(endDate, rental.endDate) && Objects.equals(totalCost, rental.totalCost);
+        return id == rental.id && Objects.equals(startDate, rental.startDate)
+                && Objects.equals(endDate, rental.endDate)
+                && Objects.equals(totalCost, rental.totalCost);
     }
 
     @Override

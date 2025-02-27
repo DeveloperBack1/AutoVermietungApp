@@ -1,22 +1,24 @@
-version: '3.8'
+version: "3.8"
+
 services:
-  mysqldb:
+  mysql:
     image: mysql:8
-    container_name: mysqldb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: Tausend1308
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: autovermietungapp
     ports:
-      - "3306:3306"
+      - "3308:3306"
 
   app:
     build: .
     depends_on:
-      - mysqldb
+      - mysql
     environment:
-      DB_URL: jdbc:mysql://mysqldb:3306/autovermietungapp?createDatabaseIfNotExist=true
-      DB_USERNAME: root
-      DB_PASS: Tausend1308
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DB_NAME: autovermietungapp
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
     ports:
       - "8080:8080"

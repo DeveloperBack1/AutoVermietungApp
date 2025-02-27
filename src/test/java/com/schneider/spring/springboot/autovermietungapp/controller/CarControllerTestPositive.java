@@ -28,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql(scripts = {"/db/schema-test.sql", "/db/data-test.sql"})
 @WithMockUser(value = "ADMIN", password = "qqq", roles = {"USER", "ADMIN"})
+
 class CarControllerTestPositive {
 
     private final CarDTO EXPECTED_DATA = new CarDTO("Golf", "VW", "55.00");

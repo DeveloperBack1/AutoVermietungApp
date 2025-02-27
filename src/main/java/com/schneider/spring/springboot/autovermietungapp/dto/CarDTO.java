@@ -4,9 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Data Transfer Object (DTO) for Car entity.
+ * <p>
+ * This class is used for transferring car details between the client and the server.
+ */
 @Setter
 @Getter
 public class CarDTO {
+
     @JsonProperty("car_model")
     private String model;
 
