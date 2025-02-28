@@ -8,7 +8,11 @@ import com.schneider.spring.springboot.autovermietungapp.exception.IncorrectBran
 import com.schneider.spring.springboot.autovermietungapp.exception.errormessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 /**
@@ -31,7 +35,7 @@ public class CarController {
      *
      * @return List of car DTOs
      */
-  @GetAllCars(path="/getAll")
+    @GetAllCars(path = "/getAll")
     public List<CarDTO> getAllCars() {
         return carService.getAllCars();
     }
@@ -42,7 +46,7 @@ public class CarController {
      * @param brand the brand of the car
      * @return List of car DTOs matching the given brand
      */
-    @GetCarsByBrand(path="/getByBrand/{brand}")
+    @GetCarsByBrand(path = "/getByBrand/{brand}")
     public List<CarDTO> getCarsByBrand(@PathVariable String brand) {
         brandValidator(brand);
         return carService.getCarsByBrand(brand);
@@ -54,7 +58,7 @@ public class CarController {
      * @param model the model of the car
      * @return List of car DTOs matching the given model
      */
-    @GetCarsByModel(path="/getByModel/{model}")
+    @GetCarsByModel(path = "/getByModel/{model}")
     public List<CarDTO> getCarsByModel(
             @Parameter(description = "The model of the car to filter by") @PathVariable String model) {
         return carService.getCarsByModel(model);
@@ -76,7 +80,7 @@ public class CarController {
      *
      * @param id the ID of the car to be deleted
      */
-    @DeleteCarById(path="/delete/{id}")
+    @DeleteCarById(path = "/delete/{id}")
     public void deleteCarById(@PathVariable Integer id) {
         carService.deleteCarById(id);
     }

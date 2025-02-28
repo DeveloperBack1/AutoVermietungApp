@@ -2,6 +2,7 @@ package com.schneider.spring.springboot.autovermietungapp.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
 import java.util.Optional;
 
 /**
@@ -23,7 +24,7 @@ public class IDCheckerImpl implements ConstraintValidator<IDChecker, String> {
      *
      * @param constraintAnnotation the annotation instance for the constraint
      */
-   @Override
+    @Override
     public void initialize(IDChecker constraintAnnotation) {
         // No initialization needed for this implementation
         ConstraintValidator.super.initialize(constraintAnnotation);
@@ -32,7 +33,7 @@ public class IDCheckerImpl implements ConstraintValidator<IDChecker, String> {
     /**
      * Validates that the given ID contains only alphanumeric characters.
      *
-     * @param value the value to be validated (typically a String)
+     * @param value   the value to be validated (typically a String)
      * @param context the validation context
      * @return true if the ID matches the required pattern, otherwise false
      */

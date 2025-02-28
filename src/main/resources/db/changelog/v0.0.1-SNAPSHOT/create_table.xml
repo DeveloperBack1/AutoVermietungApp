@@ -7,13 +7,27 @@
 
     <changeSet id="drop-tables" author="Max Schneider">
         <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="1">SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'users_roles'</sqlCheck>
-            <sqlCheck expectedResult="1">SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'roles_authorities'</sqlCheck>
-            <sqlCheck expectedResult="1">SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'rentals'</sqlCheck>
-            <sqlCheck expectedResult="1">SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'users'</sqlCheck>
-            <sqlCheck expectedResult="1">SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'roles'</sqlCheck>
-            <sqlCheck expectedResult="1">SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'authorities'</sqlCheck>
-            <sqlCheck expectedResult="1">SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'cars'</sqlCheck>
+            <sqlCheck expectedResult="1">SELECT COUNT(*)
+                                         FROM information_schema.tables
+                                         WHERE table_name = 'users_roles'</sqlCheck>
+            <sqlCheck expectedResult="1">SELECT COUNT(*)
+                                         FROM information_schema.tables
+                                         WHERE table_name = 'roles_authorities'</sqlCheck>
+            <sqlCheck expectedResult="1">SELECT COUNT(*)
+                                         FROM information_schema.tables
+                                         WHERE table_name = 'rentals'</sqlCheck>
+            <sqlCheck expectedResult="1">SELECT COUNT(*)
+                                         FROM information_schema.tables
+                                         WHERE table_name = 'users'</sqlCheck>
+            <sqlCheck expectedResult="1">SELECT COUNT(*)
+                                         FROM information_schema.tables
+                                         WHERE table_name = 'roles'</sqlCheck>
+            <sqlCheck expectedResult="1">SELECT COUNT(*)
+                                         FROM information_schema.tables
+                                         WHERE table_name = 'authorities'</sqlCheck>
+            <sqlCheck expectedResult="1">SELECT COUNT(*)
+                                         FROM information_schema.tables
+                                         WHERE table_name = 'cars'</sqlCheck>
         </preConditions>
 
         <dropTable tableName="users_roles"/>
@@ -101,7 +115,8 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="role_id, authority_id" constraintName="pk_roles_authorities" tableName="roles_authorities"/>
+        <addPrimaryKey columnNames="role_id, authority_id" constraintName="pk_roles_authorities"
+                       tableName="roles_authorities"/>
 
         <addForeignKeyConstraint baseColumnNames="role_id"
                                  baseTableName="roles_authorities"

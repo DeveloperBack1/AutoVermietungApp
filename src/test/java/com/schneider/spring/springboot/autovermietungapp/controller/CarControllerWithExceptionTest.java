@@ -17,8 +17,10 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 import java.util.List;
 import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql(scripts = {"/db/schema-test.sql", "/db/data-test.sql"})
 @WithMockUser(value = "ADMIN", password = "qqq", roles = {"USER", "ADMIN"})
- class CarControllerWithExceptionTest {
+class CarControllerWithExceptionTest {
 
     @Autowired
     private MockMvc mockMvc;

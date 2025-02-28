@@ -13,7 +13,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.*;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Implementation of the {@link UserDetailsService} interface for loading user-specific data
@@ -62,7 +66,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      *
      * @param roles the set of roles assigned to the user.
      * @return a collection of {@link GrantedAuthority} objects that represent the user's roles
-     *         and specific authorities.
+     * and specific authorities.
      */
     private Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
         Set<GrantedAuthority> authorities = new HashSet<>();

@@ -17,8 +17,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 import java.util.List;
 import java.util.Random;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -26,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql(scripts = {"/db/schema-test.sql", "/db/data-test.sql"})
 @WithMockUser(value = "ADMIN", password = "qqq", roles = {"USER", "ADMIN"})
-
 class CarControllerTestPositive {
 
     private final CarDTO EXPECTED_DATA = new CarDTO("Golf", "VW", "55.00");

@@ -12,8 +12,8 @@ public class SecurityPermission {
 
     private final String ROLE_ADMIN = "ROLE_ADMIN";
     private final String ROLE_USER = "ROLE_USER";
-    private  final String READ_PRIVILEGES = "READ_PRIVILEGES";
-    private  final String WRITE_PRIVILEGES = "WRITE_PRIVILEGES";
+    private final String READ_PRIVILEGES = "READ_PRIVILEGES";
+    private final String WRITE_PRIVILEGES = "WRITE_PRIVILEGES";
 
     /**
      * Permissions for accessing Swagger documentation and login API endpoints.
@@ -57,24 +57,28 @@ public class SecurityPermission {
      * Permissions for deleting a car entry.
      * These permissions require the user to have the 'ROLE_ADMIN' or 'WRITE_PRIVILEGES' authority.
      */
-    private  final String[] CARS_DELETE_PERMISSIONS = {
+    private final String[] CARS_DELETE_PERMISSIONS = {
             ROLE_ADMIN,
             WRITE_PRIVILEGES
     };
 
-    public  String[] getSwaggerAndLoginPermissions() {
+    public String[] getSwaggerAndLoginPermissions() {
         return SWAGGER_AND_LOGIN_PERMISSIONS;
     }
-    public  String[] getGetByBrandPermissions() {
+
+    public String[] getGetByBrandPermissions() {
         return GET_BY_BRAND_PERMISSIONS;
     }
-    public  String[] getGetByModelPermissions() {
+
+    public String[] getGetByModelPermissions() {
         return GET_BY_MODEL_PERMISSIONS;
     }
-    public  String[] getCarsCreatePermissions() {
+
+    public String[] getCarsCreatePermissions() {
         return CARS_CREATE_PERMISSIONS;
     }
-    public  String[] getCarsDeletePermissions() {
+
+    public String[] getCarsDeletePermissions() {
         return CARS_DELETE_PERMISSIONS;
     }
 }
