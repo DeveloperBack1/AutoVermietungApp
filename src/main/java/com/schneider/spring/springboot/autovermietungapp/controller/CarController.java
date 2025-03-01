@@ -76,7 +76,7 @@ public class CarController {
      *
      * @param id the ID of the car to be deleted
      */
-    @DeleteCarById(path="/delete/{id}")
+    @DeleteMapping(value="/delete/{id}")
     public void deleteCarById(@PathVariable Integer id) {
         carService.deleteCarById(id);
     }
