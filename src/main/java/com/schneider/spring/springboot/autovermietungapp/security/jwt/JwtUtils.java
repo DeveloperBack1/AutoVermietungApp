@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
 import javax.crypto.SecretKey;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Map;
+
 import static java.util.Collections.emptyMap;
 
 /**
@@ -55,9 +57,9 @@ public class JwtUtils {
     /**
      * Generates a JWT token with a given subject and additional claims.
      *
-     * @param subject   The subject (typically username) to include in the token.
-     * @param claims    A map of additional claims to include in the token.
-     * @param timeLive  The expiration time in milliseconds for the token.
+     * @param subject  The subject (typically username) to include in the token.
+     * @param claims   A map of additional claims to include in the token.
+     * @param timeLive The expiration time in milliseconds for the token.
      * @return The generated JWT token.
      */
     public String generateToken(String subject, Map<String, Object> claims, int timeLive) {

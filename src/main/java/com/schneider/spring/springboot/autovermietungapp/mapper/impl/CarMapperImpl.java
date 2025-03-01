@@ -5,6 +5,7 @@ import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.mapper.CarMapper;
 import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
