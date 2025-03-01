@@ -196,7 +196,6 @@
                     <source>${java.version}</source>
                 </configuration>
             </plugin>
-
         </plugins>
         <finalName>
             autovermietungapp
