@@ -8,8 +8,10 @@ import com.schneider.spring.springboot.autovermietungapp.exception.errormessages
 import com.schneider.spring.springboot.autovermietungapp.mapper.CarMapper;
 import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,6 +107,36 @@ public class CarServiceImpl implements CarService {
             throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);
         }
         return carMapper.toCarDTOList(list);
+    }
+
+    /**
+     * Updates an existing car with the provided details.
+     *
+     * @param id      the ID of the car to be updated
+     * @param carDTO  the DTO containing updated car details
+     * @return the updated {@link Car} entity
+     * @throws EntityNotFoundException if the car with the given ID is not found
+     * @throws IllegalArgumentException if the brand is invalid or the price format is incorrect
+     */
+    public Car updateCar(Integer id, CarDTO carDTO) {
+        Car existingCar = carRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Car with ID " + id + " not found"));
+
+        existingCar.setModel(carDTO.getModel());
+
+        try {
+            existingCar.setBrand(Brand.valueOf(carDTO.getBrand().toUpperCase()));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid brand: " + carDTO.getBrand());
+        }
+
+        try {
+            existingCar.setPricePerDay(new BigDecimal(carDTO.getPricePerDay()));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid price format: " + carDTO.getPricePerDay());
+        }
+
+        return carRepository.save(existingCar);
     }
 
     /**

@@ -8,6 +8,9 @@ import com.schneider.spring.springboot.autovermietungapp.exception.IncorrectBran
 import com.schneider.spring.springboot.autovermietungapp.exception.errormessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -76,9 +79,28 @@ public class CarController {
      *
      * @param id the ID of the car to be deleted
      */
-    @DeleteMapping(value="/delete/{id}")
+    @DeleteCar(path="/delete/{id}")
     public void deleteCarById(@PathVariable Integer id) {
         carService.deleteCarById(id);
+    }
+
+    /**
+     * Updates an existing car by its ID.
+     *
+     * @param id the ID of the car to be updated
+     * @param carDTO the updated car data
+     * @return the updated car entity
+     */
+    @UpdateCar(path = "/update/{id}")
+    public ResponseEntity<Car> updateCar(@PathVariable Integer id, @RequestBody CarDTO carDTO) {
+        try {
+            Car updatedCar = carService.updateCar(id, carDTO);
+            return ResponseEntity.ok(updatedCar);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     /**
@@ -101,4 +123,6 @@ public class CarController {
             throw new IncorrectBrandNameException(ErrorMessage.INCORRECT_BRAND_NAME);
         }
     }
+
+
 }

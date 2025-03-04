@@ -14,6 +14,7 @@ public class SecurityPermission {
     private final String ROLE_USER = "ROLE_USER";
     private final String READ_PRIVILEGES = "READ_PRIVILEGES";
     private final String WRITE_PRIVILEGES = "WRITE_PRIVILEGES";
+    private final String UPDATE_PRIVILEGES = "UPDATE_PRIVILEGES";
 
     /**
      * Permissions for accessing Swagger documentation and login API endpoints.
@@ -62,6 +63,15 @@ public class SecurityPermission {
             WRITE_PRIVILEGES
     };
 
+    /**
+     * Permissions for updating a car entry.
+     * These permissions require the user to have the 'ROLE_ADMIN' or 'UPDATE_PRIVILEGES' authority.
+     */
+    private final String[] CARS_UPDATE_PERMISSIONS = {
+            ROLE_ADMIN,
+            UPDATE_PRIVILEGES
+    };
+
     public String[] getSwaggerAndLoginPermissions() {
         return SWAGGER_AND_LOGIN_PERMISSIONS;
     }
@@ -80,5 +90,9 @@ public class SecurityPermission {
 
     public String[] getCarsDeletePermissions() {
         return CARS_DELETE_PERMISSIONS;
+    }
+
+    public String[] getCarsUpdatePermissions() {
+        return CARS_UPDATE_PERMISSIONS;
     }
 }
