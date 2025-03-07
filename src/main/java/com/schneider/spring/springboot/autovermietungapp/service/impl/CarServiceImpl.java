@@ -8,8 +8,11 @@ import com.schneider.spring.springboot.autovermietungapp.exception.errormessages
 import com.schneider.spring.springboot.autovermietungapp.mapper.CarMapper;
 import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,6 +111,29 @@ public class CarServiceImpl implements CarService {
     }
 
     /**
+     * Updates an existing car with the provided details.
+     *
+     * @param id      the ID of the car to be updated
+     * @param carDTO  the DTO containing updated car details
+     * @return the updated {@link Car} entity
+     * @throws EntityNotFoundException if the car with the given ID is not found
+     * @throws IllegalArgumentException if the brand is invalid or the price format is incorrect
+     */
+    @Override
+    @Transactional
+    public Car updateCar(Integer id, CarDTO carDTO) {
+        Car existingCar = carRepository.findById(id)
+                .orElseThrow(() -> new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE));
+
+        existingCar.setModel(carDTO.getModel());
+        existingCar.setBrand(Brand.valueOf(carDTO.getBrand().toUpperCase()));
+
+        existingCar.setPricePerDay(new BigDecimal(carDTO.getPricePerDay()));
+
+        return carRepository.save(existingCar);
+    }
+
+    /**
      * Deletes a car from the database by its ID.
      * <p>
      * If the car does not exist in the database, a {@link CarsNotExistInDataBaseException} is thrown.
@@ -116,6 +142,7 @@ public class CarServiceImpl implements CarService {
      * @param id the ID of the car to delete
      */
     @Override
+    @Transactional
     public void deleteCarById(Integer id) {
         Optional<Car> carForDeleting = carRepository.findCarById(id);
 

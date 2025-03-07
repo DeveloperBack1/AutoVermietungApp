@@ -17,10 +17,8 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import java.util.List;
 import java.util.Optional;
-
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -87,14 +85,5 @@ class CarControllerWithExceptionTest {
 
         Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.deleteCarById(notExistingId));
         Mockito.verify(carRepository, Mockito.times(2)).findCarById(notExistingId);
-    }
-
-    @Test
-    void deleteNonExistingCarThrowsException() {
-
-        Integer nonExistingId = 999;
-        when(carRepository.findCarById(nonExistingId)).thenReturn(Optional.empty());
-
-        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.deleteCarById(nonExistingId));
     }
 }

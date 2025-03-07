@@ -68,4 +68,14 @@ public interface CarService {
      * @param id the ID of the car to delete
      */
     void deleteCarById(Integer id);
+
+    /**
+     * Updates an existing car with the given details.
+     *
+     * @param id      the ID of the car to update
+     * @param carDTO  the DTO containing updated car information
+     * @return the updated {@link Car} entity
+     * @throws IllegalArgumentException if the brand is invalid or the price format is incorrect
+     */
+    Car updateCar(Integer id, CarDTO carDTO);
 }

@@ -60,6 +60,9 @@
         <insert tableName="authorities">
             <column name="authority_name" value="DELETE_PRIVILEGES"/>
         </insert>
+        <insert tableName="authorities">
+            <column name="authority_name" value="UPDATE_PRIVILEGES"/>
+        </insert>
     </changeSet>
 
     <changeSet id="5" author="Max Schneider">
@@ -84,9 +87,14 @@
             <column name="authority_id" value="1"/>
         </insert>
         <insert tableName="roles_authorities">
+            <column name="role_id" value="1"/>
+            <column name="authority_id" value="4"/>
+        </insert>
+        <insert tableName="roles_authorities">
             <column name="role_id" value="3"/>
             <column name="authority_id" value="2"/>
         </insert>
+
     </changeSet>
 
     <changeSet id="6" author="Max Schneider">

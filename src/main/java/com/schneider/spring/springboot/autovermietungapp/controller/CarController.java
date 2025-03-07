@@ -31,7 +31,7 @@ public class CarController {
      *
      * @return List of car DTOs
      */
-  @GetAllCars(path="/getAll")
+    @GetAllCars(path="/getAll")
     public List<CarDTO> getAllCars() {
         return carService.getAllCars();
     }
@@ -76,9 +76,23 @@ public class CarController {
      *
      * @param id the ID of the car to be deleted
      */
-    @DeleteMapping(value="/delete/{id}")
+    @DeleteCar(path="/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteCarById(@PathVariable Integer id) {
         carService.deleteCarById(id);
+    }
+
+    /**
+     * Updates an existing car by its ID.
+     *
+     * @param id the ID of the car to be updated
+     * @param carDTO the updated car data
+     * @return the updated car entity
+     */
+    @UpdateCar(path = "/update/{id}")
+    @PutMapping("/update/{id}")
+    public Car updateCar(@PathVariable Integer id, @RequestBody CarDTO carDTO) {
+        return carService.updateCar(id, carDTO);
     }
 
     /**
