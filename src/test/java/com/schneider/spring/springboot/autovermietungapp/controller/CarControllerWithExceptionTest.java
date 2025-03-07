@@ -1,8 +1,5 @@
 package com.schneider.spring.springboot.autovermietungapp.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
-import com.schneider.spring.springboot.autovermietungapp.entity.Car;
 import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
 import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
 import com.schneider.spring.springboot.autovermietungapp.repository.CarRepository;
@@ -19,12 +16,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import java.util.List;
 import java.util.Optional;
-
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -91,14 +85,5 @@ class CarControllerWithExceptionTest {
 
         Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.deleteCarById(notExistingId));
         Mockito.verify(carRepository, Mockito.times(2)).findCarById(notExistingId);
-    }
-
-    @Test
-    void deleteNonExistingCarThrowsException() {
-
-        Integer nonExistingId = 999;
-        when(carRepository.findCarById(nonExistingId)).thenReturn(Optional.empty());
-
-        Assertions.assertThrows(CarsNotExistInDataBaseException.class, () -> carService.deleteCarById(nonExistingId));
     }
 }

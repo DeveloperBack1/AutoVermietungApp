@@ -98,4 +98,3 @@ public @interface UpdateCar {
     @AliasFor(annotation = RequestMapping.class, attribute = "path")
     String[] path() default {};
 }
-

@@ -10,6 +10,7 @@ import com.schneider.spring.springboot.autovermietungapp.repository.CarRepositor
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -118,23 +119,16 @@ public class CarServiceImpl implements CarService {
      * @throws EntityNotFoundException if the car with the given ID is not found
      * @throws IllegalArgumentException if the brand is invalid or the price format is incorrect
      */
+    @Override
+    @Transactional
     public Car updateCar(Integer id, CarDTO carDTO) {
         Car existingCar = carRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Car with ID " + id + " not found"));
+                .orElseThrow(() -> new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE));
 
         existingCar.setModel(carDTO.getModel());
+        existingCar.setBrand(Brand.valueOf(carDTO.getBrand().toUpperCase()));
 
-        try {
-            existingCar.setBrand(Brand.valueOf(carDTO.getBrand().toUpperCase()));
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid brand: " + carDTO.getBrand());
-        }
-
-        try {
-            existingCar.setPricePerDay(new BigDecimal(carDTO.getPricePerDay()));
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid price format: " + carDTO.getPricePerDay());
-        }
+        existingCar.setPricePerDay(new BigDecimal(carDTO.getPricePerDay()));
 
         return carRepository.save(existingCar);
     }
@@ -148,6 +142,7 @@ public class CarServiceImpl implements CarService {
      * @param id the ID of the car to delete
      */
     @Override
+    @Transactional
     public void deleteCarById(Integer id) {
         Optional<Car> carForDeleting = carRepository.findCarById(id);
 

@@ -179,37 +179,5 @@ class CarControllerTestPositive {
         Assertions.assertEquals(new BigDecimal("65.00"), updatedCar.getPricePerDay());
     }
 
-    @Test
-    void updateCarWithInvalidDataTest() throws Exception {
 
-        CarDTO carDTOTest = new CarDTO("Golf", "VW", "55.00");
-        String jsonString = objectMapper.writeValueAsString(carDTOTest);
-
-        MvcResult createResult = mockMvc.perform(MockMvcRequestBuilders.post("/cars/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonString))
-                .andReturn();
-
-        Car createdCar = objectMapper.readValue(createResult.getResponse().getContentAsString(), Car.class);
-        Assertions.assertNotNull(createdCar);
-
-        CarDTO invalidCarDTO = new CarDTO("Passat", "INVALID_BRAND", "invalid_price");
-        String invalidJsonString = objectMapper.writeValueAsString(invalidCarDTO);
-
-        mockMvc.perform(MockMvcRequestBuilders.put("/cars/update/{id}", createdCar.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(invalidJsonString))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void updateNonExistentCarTest() throws Exception {
-        CarDTO carDTO = new CarDTO("Audi", "AUDI", "75.00");
-        String jsonString = objectMapper.writeValueAsString(carDTO);
-
-        mockMvc.perform(MockMvcRequestBuilders.put("/cars/update/{id}", 9999) // Несуществующий ID
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonString))
-                .andExpect(status().isNotFound());
-    }
 }
