@@ -15,8 +15,6 @@ import java.util.Optional;
  * </p>
  */
 public class IDCheckerImpl implements ConstraintValidator<IDChecker, String> {
-
-    // Pattern for validating the ID: alphanumeric and word characters
     private static final String ID_PATTERN = "\\w+";
 
     /**
@@ -26,7 +24,6 @@ public class IDCheckerImpl implements ConstraintValidator<IDChecker, String> {
      */
     @Override
     public void initialize(IDChecker constraintAnnotation) {
-        // No initialization needed for this implementation
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
@@ -39,9 +36,8 @@ public class IDCheckerImpl implements ConstraintValidator<IDChecker, String> {
      */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        // Validate that the ID is non-null, non-empty, and matches the pattern
         return Optional.ofNullable(value)
-                .filter(String::isBlank)
+                .filter(s -> !s.isBlank())
                 .map(id -> id.matches(ID_PATTERN))
                 .orElse(false);
     }
