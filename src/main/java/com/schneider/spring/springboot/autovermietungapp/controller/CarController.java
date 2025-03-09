@@ -3,12 +3,12 @@ package com.schneider.spring.springboot.autovermietungapp.controller;
 import com.schneider.spring.springboot.autovermietungapp.controller.annotation.*;
 import com.schneider.spring.springboot.autovermietungapp.dto.CarDTO;
 import com.schneider.spring.springboot.autovermietungapp.entity.Car;
-import com.schneider.spring.springboot.autovermietungapp.entity.enums.Brand;
-import com.schneider.spring.springboot.autovermietungapp.exception.IncorrectBrandNameException;
-import com.schneider.spring.springboot.autovermietungapp.exception.errormessages.ErrorMessage;
 import com.schneider.spring.springboot.autovermietungapp.service.CarService;
+import com.schneider.spring.springboot.autovermietungapp.validation.ValidBrand;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
@@ -16,6 +16,7 @@ import java.util.List;
  * <p>
  * This controller provides endpoints for retrieving, creating, and deleting cars.
  */
+@Validated
 @RestController
 @RequestMapping("/cars")
 public class CarController {
@@ -31,7 +32,7 @@ public class CarController {
      *
      * @return List of car DTOs
      */
-    @GetAllCars(path="/getAll")
+    @GetAllCars(path = "/getAll")
     public List<CarDTO> getAllCars() {
         return carService.getAllCars();
     }
@@ -42,9 +43,8 @@ public class CarController {
      * @param brand the brand of the car
      * @return List of car DTOs matching the given brand
      */
-    @GetCarsByBrand(path="/getByBrand/{brand}")
-    public List<CarDTO> getCarsByBrand(@PathVariable String brand) {
-        brandValidator(brand);
+    @GetCarsByBrand(path = "/getByBrand/{brand}")
+    public List<CarDTO> getCarsByBrand(@PathVariable @ValidBrand String brand) {
         return carService.getCarsByBrand(brand);
     }
 
@@ -54,7 +54,7 @@ public class CarController {
      * @param model the model of the car
      * @return List of car DTOs matching the given model
      */
-    @GetCarsByModel(path="/getByModel/{model}")
+    @GetCarsByModel(path = "/getByModel/{model}")
     public List<CarDTO> getCarsByModel(
             @Parameter(description = "The model of the car to filter by") @PathVariable String model) {
         return carService.getCarsByModel(model);
@@ -76,7 +76,7 @@ public class CarController {
      *
      * @param id the ID of the car to be deleted
      */
-    @DeleteCar(path="/delete/{id}")
+    @DeleteCar(path = "/delete/{id}")
     @DeleteMapping("/delete/{id}")
     public void deleteCarById(@PathVariable Integer id) {
         carService.deleteCarById(id);
@@ -85,7 +85,7 @@ public class CarController {
     /**
      * Updates an existing car by its ID.
      *
-     * @param id the ID of the car to be updated
+     * @param id     the ID of the car to be updated
      * @param carDTO the updated car data
      * @return the updated car entity
      */
@@ -93,26 +93,5 @@ public class CarController {
     @PutMapping("/update/{id}")
     public Car updateCar(@PathVariable Integer id, @RequestBody CarDTO carDTO) {
         return carService.updateCar(id, carDTO);
-    }
-
-    /**
-     * Validates the car brand.
-     *
-     * @param brand the brand to be validated
-     * @throws IncorrectBrandNameException if the brand is not valid
-     */
-    private void brandValidator(String brand) {
-        Brand[] brands = Brand.values();
-        int count = 0;
-
-        for (Brand b : brands) {
-            if (b.name().equalsIgnoreCase(brand)) {
-                count++;
-            }
-        }
-
-        if (count == 0) {
-            throw new IncorrectBrandNameException(ErrorMessage.INCORRECT_BRAND_NAME);
-        }
     }
 }
