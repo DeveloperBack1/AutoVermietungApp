@@ -12,7 +12,7 @@ import java.util.Arrays;
  * This class ensures that the provided brand exists in the {@link Brand} enum.
  * </p>
  */
-@Schema(description = "Validator for checking if a car brand exists in the predefined list.")
+@Schema(description = "Validator for checking if a car brand exists in the predefined list")
 public class BrandValidator implements ConstraintValidator<ValidBrand, String> {
 
     @Override

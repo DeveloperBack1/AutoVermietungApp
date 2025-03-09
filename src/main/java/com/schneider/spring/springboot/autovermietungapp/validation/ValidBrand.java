@@ -30,7 +30,7 @@ public @interface ValidBrand {
      *
      * @return default error message
      */
-    @Schema(description = "Error message returned if the brand name is invalid.", example = "Invalid brand name.")
+    @Schema(description = "Error message returned if the brand name is invalid.", example = "Invalid brand name")
     String message() default "INVALID_BRAND_NAME";
 
     /**

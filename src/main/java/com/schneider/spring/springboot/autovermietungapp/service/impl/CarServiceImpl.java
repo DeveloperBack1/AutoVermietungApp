@@ -149,6 +149,7 @@ public class CarServiceImpl implements CarService {
             carRepository.delete(carForDeleting.get());
         } else {
             throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);
+
         }
     }
 }

@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.info.License;
                 version = "1.0.0",
                 contact = @Contact(
                         name = "DeveloperBack1",
-                        email = "max45@yahoo.com",
+                        email = "max@yahoo.com",
                         url = "https://maxschneider.dev"
                 ),
                 license = @License(
