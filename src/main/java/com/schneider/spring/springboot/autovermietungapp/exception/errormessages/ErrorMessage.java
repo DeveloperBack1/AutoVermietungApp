@@ -12,8 +12,8 @@ public class ErrorMessage {
 
     public static final String USER_NOT_EXIST = "EMAIL_DOESNT_EXIST_IN_DATABASE";
 
-    public static final String INCORRECT_BRAND_NAME
-            = "INCORRECT_BRAND_NAME";
+    public static final String INVALID_BRAND_NAME
+            = "INVALID_BRAND_NAME";
 
     private ErrorMessage() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
