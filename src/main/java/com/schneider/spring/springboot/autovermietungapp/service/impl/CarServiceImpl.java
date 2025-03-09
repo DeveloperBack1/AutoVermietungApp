@@ -86,7 +86,7 @@ public class CarServiceImpl implements CarService {
         List<Car> list = carRepository.findByBrand(brandUppercase);
 
         if (list.isEmpty()) {
-            throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);
+            throw new CarsNotExistInDataBaseException(ErrorMessage.INVALID_BRAND_NAME);
         }
         return carMapper.toCarDTOList(list);
     }
@@ -149,6 +149,7 @@ public class CarServiceImpl implements CarService {
             carRepository.delete(carForDeleting.get());
         } else {
             throw new CarsNotExistInDataBaseException(ErrorMessage.CARS_NOT_EXIST_IN_DATABASE);
+
         }
     }
 }
