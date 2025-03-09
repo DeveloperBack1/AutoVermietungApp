@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.info.License;
                 description = "API системы Autovermietung",
                 version = "1.0.0",
                 contact = @Contact(
-                        name = "Max Schneider",
+                        name = "DeveloperBack1",
                         email = "max@yahoo.com",
                         url = "https://maxschneider.dev"
                 ),
