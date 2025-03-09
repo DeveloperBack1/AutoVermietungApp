@@ -178,6 +178,4 @@ class CarControllerTestPositive {
         Assertions.assertEquals("VW", updatedCar.getBrand().toString());
         Assertions.assertEquals(new BigDecimal("65.00"), updatedCar.getPricePerDay());
     }
-
-
 }
