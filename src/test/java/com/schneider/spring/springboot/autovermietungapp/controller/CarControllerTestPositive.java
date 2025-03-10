@@ -27,9 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Sql(scripts = {"/db/schema-test.sql", "/db/data-test.sql"})
 @WithMockUser(value = "ADMIN", password = "qqq", roles = {"USER", "ADMIN"})
-class CarControllerTestPositive {
+class CarControllerTests {
 
-    private final CarDTO EXPECTED_DATA = new CarDTO("Golf", "VW", "55.00");
+    private final CarDTO expectedData = new CarDTO("Golf", "VW", "55.00");
 
     @Autowired
     private MockMvc mockMvc;
@@ -81,9 +81,9 @@ class CarControllerTestPositive {
         CarDTO actualData = actualList.get(0);
 
         Assertions.assertEquals(1, actualList.size());
-        Assertions.assertEquals(EXPECTED_DATA.getModel(), actualData.getModel());
-        Assertions.assertEquals(EXPECTED_DATA.getBrand(), actualData.getBrand());
-        Assertions.assertEquals(EXPECTED_DATA.getPricePerDay(), actualData.getPricePerDay());
+        Assertions.assertEquals(expectedData.getModel(), actualData.getModel());
+        Assertions.assertEquals(expectedData.getBrand(), actualData.getBrand());
+        Assertions.assertEquals(expectedData.getPricePerDay(), actualData.getPricePerDay());
     }
 
     @Test
@@ -99,9 +99,9 @@ class CarControllerTestPositive {
         CarDTO actualData = actualList.get(0);
 
         Assertions.assertEquals(1, actualList.size());
-        Assertions.assertEquals(EXPECTED_DATA.getModel(), actualData.getModel());
-        Assertions.assertEquals(EXPECTED_DATA.getBrand(), actualData.getBrand());
-        Assertions.assertEquals(EXPECTED_DATA.getPricePerDay(), actualData.getPricePerDay());
+        Assertions.assertEquals(expectedData.getModel(), actualData.getModel());
+        Assertions.assertEquals(expectedData.getBrand(), actualData.getBrand());
+        Assertions.assertEquals(expectedData.getPricePerDay(), actualData.getPricePerDay());
     }
 
     @Test

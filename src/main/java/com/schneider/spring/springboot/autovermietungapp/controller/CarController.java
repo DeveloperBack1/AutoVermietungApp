@@ -44,6 +44,7 @@ public class CarController {
      * @return List of car DTOs matching the given brand
      */
     @GetCarsByBrand(path = "/getByBrand/{brand}")
+    @GetMapping("/getByBrand/{brand}")
     public List<CarDTO> getCarsByBrand(@PathVariable @ValidBrand String brand) {
         return carService.getCarsByBrand(brand);
     }
@@ -55,6 +56,7 @@ public class CarController {
      * @return List of car DTOs matching the given model
      */
     @GetCarsByModel(path = "/getByModel/{model}")
+    @GetMapping("/getByModel/{model}")
     public List<CarDTO> getCarsByModel(
             @Parameter(description = "The model of the car to filter by") @PathVariable String model) {
         return carService.getCarsByModel(model);
