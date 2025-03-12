@@ -72,6 +72,17 @@ public class SecurityPermission {
             UPDATE_PRIVILEGES
     };
 
+    private final String[] RENTALS_UPDATE_PERMISSIONS = {
+            ROLE_ADMIN,
+            UPDATE_PRIVILEGES
+    };
+
+    private final String[] RENTAL_CREATE_PERMISSIONS = {
+            ROLE_ADMIN,
+            WRITE_PRIVILEGES
+    };
+
+
     public String[] getSwaggerAndLoginPermissions() {
         return SWAGGER_AND_LOGIN_PERMISSIONS;
     }
@@ -95,4 +106,12 @@ public class SecurityPermission {
     public String[] getCarsUpdatePermissions() {
         return CARS_UPDATE_PERMISSIONS;
     }
+
+    public String[] getRentalCreatePermissions() {
+        return RENTAL_CREATE_PERMISSIONS;
+    }
+
+   public String[] getRentalsUpdatePermissions() {
+        return  RENTALS_UPDATE_PERMISSIONS;
+   }
 }

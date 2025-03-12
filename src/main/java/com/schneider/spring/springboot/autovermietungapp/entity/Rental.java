@@ -24,6 +24,9 @@ public class Rental {
     @Column(name = "rental_id")
     private int id;
 
+    @Version
+    private int version;
+
     @Column(name = "start_date")
     private LocalDate startDate;
 
@@ -33,11 +36,11 @@ public class Rental {
     @Column(name = "total_cost")
     private BigDecimal totalCost;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "car_id")
     private Car car;
 
