@@ -155,13 +155,13 @@
             <column name="rental_id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="rental_start_date" type="DATE">
+            <column name="start_date" type="DATE">
                 <constraints nullable="false"/>
             </column>
-            <column name="rental_end_date" type="DATE">
+            <column name="end_date" type="DATE">
                 <constraints nullable="false"/>
             </column>
-            <column name="rental_total_cost" type="DECIMAL(10,2)">
+            <column name="total_cost" type="DECIMAL(10,2)">
                 <constraints nullable="false"/>
             </column>
             <column name="user_id" type="INT"/>

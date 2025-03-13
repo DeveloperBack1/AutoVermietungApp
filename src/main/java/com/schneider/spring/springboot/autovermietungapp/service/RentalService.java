@@ -10,12 +10,12 @@ public interface RentalService {
 
     boolean deleteRental(int id);
 
-    RentalDTO saveRentalDTO(RentalDTO rentalDTO);
+    public RentalDTO createRental(RentalDTO rentalDTO);
 
     List<RentalDTO> getAllRentalsDTO();
 
     Optional<RentalDTO> getRentalByIdDTO(int id);
 
-    Optional<RentalDTO> updateRentalDTO(int id, RentalDTO rentalDTO);
+   RentalDTO updateRentalDTO(int id, RentalDTO rentalDTO);
 
 }

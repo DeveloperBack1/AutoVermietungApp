@@ -18,13 +18,16 @@ public class RentalDTO {
     @JsonProperty("rental_id")
     private int id;
 
-    @JsonProperty("rental_start_date")
+    @JsonProperty("car_id")
+    private int carId;
+
+    @JsonProperty("start_date")
     private LocalDate startDate;
 
-    @JsonProperty("rental_end_date")
+    @JsonProperty("end_date")
     private LocalDate endDate;
 
-    @JsonProperty("rental_total_cost")
+    @JsonProperty("total_cost")
     private BigDecimal totalCost;
 
     @JsonProperty("car_model")
@@ -39,9 +42,10 @@ public class RentalDTO {
     @JsonProperty("user_email")
     private String userEmail;
 
-
-    public RentalDTO(int id, LocalDate startDate, LocalDate endDate, BigDecimal totalCost, String carModel, String carBrand, String userName, String userEmail) {
+    public RentalDTO(int id, int carId, LocalDate startDate, LocalDate endDate,
+                     BigDecimal totalCost, String carModel, String carBrand, String userName, String userEmail) {
         this.id = id;
+        this.carId = carId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.totalCost = totalCost;
@@ -51,6 +55,8 @@ public class RentalDTO {
         this.userEmail = userEmail;
     }
 
+
+
     public RentalDTO() {
     }
 
@@ -58,6 +64,7 @@ public class RentalDTO {
     public String toString() {
         return "RentalDTO{" +
                 "id=" + id +
+                ", carId=" + carId +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", totalCost=" + totalCost +

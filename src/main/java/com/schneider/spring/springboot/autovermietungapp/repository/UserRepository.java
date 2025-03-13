@@ -22,4 +22,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return an {@link Optional} containing the found {@link User} or empty if not found.
      */
     Optional<User> findUserByEmail(String email);
+
+    Optional<User> findByEmail(String userEmail);
+
 }

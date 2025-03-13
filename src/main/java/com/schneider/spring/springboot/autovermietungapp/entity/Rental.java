@@ -25,23 +25,24 @@ public class Rental {
     private int id;
 
     @Version
-    private int version;
+    private Integer version = 0;
 
-    @Column(name = "start_date")
+
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "end_date")
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    @Column(name = "total_cost")
+    @Column(name = "total_cost", nullable = false)
     private BigDecimal totalCost;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "car_id")
+    @OneToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "car_id", nullable = false)
     private Car car;
 
     @Override

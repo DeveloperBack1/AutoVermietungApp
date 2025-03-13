@@ -31,10 +31,10 @@ public class RentalMapperImpl implements RentalMapper {
         rentalDTO.setId(rental.getId());
         rentalDTO.setStartDate(rental.getStartDate());
         rentalDTO.setEndDate(rental.getEndDate());
-
         rentalDTO.setTotalCost(rental.getTotalCost());
 
         if (rental.getCar() != null) {
+            rentalDTO.setCarId(rental.getCar().getId()); // <-- добавил carId
             rentalDTO.setCarModel(rental.getCar().getModel());
             rentalDTO.setCarBrand(rental.getCar().getBrand().toString());
         }
@@ -46,6 +46,7 @@ public class RentalMapperImpl implements RentalMapper {
 
         return rentalDTO;
     }
+
 
     /**
      * Converts a {@link RentalDTO} object to a {@link Rental} entity.
