@@ -43,7 +43,7 @@ VALUES ('Model 3', 'TESLA', 120.00),
        ('X5', 'BMW', 100.00),
        ('Golf', 'VW', 55.00);
 
-INSERT INTO rentals (rental_start_date, rental_end_date, rental_total_cost, user_id, car_id)
+INSERT INTO rentals (start_date, end_date, total_cost, user_id, car_id)
 VALUES ('2024-02-01', '2024-02-05', 480.00, 1, 1),
        ('2024-02-03', '2024-02-07', 200.00, 2, 2),
        ('2024-02-10', '2024-02-15', 325.00, 3, 3),

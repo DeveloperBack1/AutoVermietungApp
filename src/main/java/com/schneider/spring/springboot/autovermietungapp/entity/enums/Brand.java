@@ -13,5 +13,9 @@ public enum Brand {
     HONDA,
     TOYOTA,
     VW,
-    FORD
+    FORD;
+
+//    public String toUpperCase() {
+//        return name().toUpperCase();
+//    }
 }

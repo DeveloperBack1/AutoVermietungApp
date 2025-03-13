@@ -2,10 +2,13 @@ package com.schneider.spring.springboot.autovermietungapp.controller.handler;
 
 import com.schneider.spring.springboot.autovermietungapp.exception.CarsNotExistInDataBaseException;
 import com.schneider.spring.springboot.autovermietungapp.exception.IncorrectBrandNameException;
+import com.schneider.spring.springboot.autovermietungapp.exception.RentalNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Global exception handler to manage different types of exceptions across the application.
@@ -15,6 +18,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(RentalNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleRentalNotFoundException(RentalNotFoundException ex) {
+        return ex.getMessage();
+    }
 
     /**
      * Handles the CarsNotExistInDataBaseException and sends a 400 BAD REQUEST response.
@@ -37,4 +46,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleIncorrectBrandNameException(IncorrectBrandNameException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+
+
 }

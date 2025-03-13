@@ -63,6 +63,11 @@ public class SecurityPermission {
             WRITE_PRIVILEGES
     };
 
+    private final String[] RENTALS_DELETE_PERMISSIONS = {
+            ROLE_ADMIN,
+            WRITE_PRIVILEGES
+    };
+
     /**
      * Permissions for updating a car entry.
      * These permissions require the user to have the 'ROLE_ADMIN' or 'UPDATE_PRIVILEGES' authority.
@@ -71,6 +76,17 @@ public class SecurityPermission {
             ROLE_ADMIN,
             UPDATE_PRIVILEGES
     };
+
+    private final String[] RENTALS_UPDATE_PERMISSIONS = {
+            ROLE_ADMIN,
+            UPDATE_PRIVILEGES
+    };
+
+    private final String[] RENTAL_CREATE_PERMISSIONS = {
+            ROLE_ADMIN,
+            WRITE_PRIVILEGES
+    };
+
 
     public String[] getSwaggerAndLoginPermissions() {
         return SWAGGER_AND_LOGIN_PERMISSIONS;
@@ -92,7 +108,19 @@ public class SecurityPermission {
         return CARS_DELETE_PERMISSIONS;
     }
 
+    public String[] getRentalsDeletePermissions() {
+        return RENTALS_DELETE_PERMISSIONS;
+    }
+
     public String[] getCarsUpdatePermissions() {
         return CARS_UPDATE_PERMISSIONS;
     }
+
+    public String[] getRentalCreatePermissions() {
+        return RENTAL_CREATE_PERMISSIONS;
+    }
+
+   public String[] getRentalsUpdatePermissions() {
+        return  RENTALS_UPDATE_PERMISSIONS;
+   }
 }
